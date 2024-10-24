@@ -1,1 +1,73 @@
-<p>formulario works!</p>
+<ng-container>
+    <section class="container-formulario">
+        <h1>Ganimedes</h1>
+        <h3>Formulário semestral de aluno</h3>
+
+        <div class="formulario">
+            <form>
+                <label for="escrita">Artigos em fase de escrita</label>
+                <input type="number" id="escrita" name="escrita" required />
+
+                <label for="submetidos"
+                    >Artigos submetido e em fase de avaliação</label
+                >
+                <input
+                    type="number"
+                    id="submetidos"
+                    name="submetidos"
+                    required
+                />
+
+                <label for="aceitos">Artigos aceitos e publicados</label>
+                <input type="number" id="aceitos" name="aceitos" required />
+
+                <label for="extracurriculares"
+                    >Atividades acadêmicas no semestre passado (congresso,
+                    visita técnica, intercâmbio, estágio PAE etc)
+                </label>
+                <input
+                    type="text"
+                    id="extracurriculares"
+                    name="extracurriculares"
+                    required
+                />
+
+                <label for="pesquisa"
+                    >Apresente um <b>resumo</b> das suas atividades de pesquisa
+                    até o momento e das atividades que ainda precisam ser
+                    desenvolvidas até a conclusão do seu curso
+                </label>
+                <input type="text" id="pesquisa" name="pesquisa" required />
+
+                <label for="declaracao"
+                    >Você tem algo a declarar para a CCP - PPgSI que considera
+                    importante para a sua avaliação?
+                </label>
+                <input type="text" id="declaracao" name="declaracao" required />
+
+                <label for="dificuldade"
+                    >Está enfrentando alguma dificuldade que precisa de apoio da
+                    coordenação do curso?
+                </label>
+                <input
+                    type="radio"
+                    id="dificuldade"
+                    name="dificuldade"
+                    required
+                    value="Sim"
+                    title="Sim"
+                    text="Sim"
+                />
+                <input
+                    type="radio"
+                    id="dificuldade"
+                    name="dificuldade"
+                    required
+                    value="Não"
+                />
+
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </section>
+</ng-container>

@@ -4,68 +4,71 @@
         <h3>Formulário semestral de aluno</h3>
 
         <div class="formulario">
-            <form>
-                <label for="escrita">Artigos em fase de escrita</label>
-                <input type="number" id="escrita" name="escrita" required />
-
-                <label for="submetidos"
-                    >Artigos submetido e em fase de avaliação</label
+            <form [formGroup]="forms">
+                <mat-form-field
+                    appearence="outline"
+                    [formControl]="forms.get('artigosEscrita')!"
                 >
-                <input
-                    type="number"
-                    id="submetidos"
-                    name="submetidos"
-                    required
-                />
+                    <mat-label>Artigos em fase de escrita</mat-label>
+                    <input matInput type="number" />
+                </mat-form-field>
 
-                <label for="aceitos">Artigos aceitos e publicados</label>
-                <input type="number" id="aceitos" name="aceitos" required />
+                <mat-form-field
+                    appearence="outline"
+                    [formControl]="forms.get('artigosSubmetidos')!"
+                >
+                    <mat-label>
+                        Artigos submetidos e em fase de avaliação
+                    </mat-label>
+                    <input matInput type="number" />
+                </mat-form-field>
 
-                <label for="extracurriculares"
-                    >Atividades acadêmicas no semestre passado (congresso,
-                    visita técnica, intercâmbio, estágio PAE etc)
-                </label>
-                <input
-                    type="text"
-                    id="extracurriculares"
-                    name="extracurriculares"
-                    required
-                />
+                <!-- <mat-form-field
+                    appearence="outline"
+                    [formControl]="forms.get('artigosAceitos')!"
+                >
+                    <mat-label>Artigos aceitos e publicados</mat-label>
+                    <input matInput type="number" />
+                </mat-form-field> -->
 
-                <label for="pesquisa"
-                    >Apresente um <b>resumo</b> das suas atividades de pesquisa
-                    até o momento e das atividades que ainda precisam ser
-                    desenvolvidas até a conclusão do seu curso
-                </label>
-                <input type="text" id="pesquisa" name="pesquisa" required />
+                <!-- <mat-form-field
+                    appearence="outline"
+                    [formControl]="forms.get('atividadesAcademicas')!"
+                >
+                    <mat-label>
+                        Atividades acadêmicas no semestre passado (congresso,
+                        visita técnica, intercâmbio, estágio PAE etc)
+                    </mat-label>
+                    <input matInput />
+                </mat-form-field> -->
 
-                <label for="declaracao"
-                    >Você tem algo a declarar para a CCP - PPgSI que considera
-                    importante para a sua avaliação?
-                </label>
-                <input type="text" id="declaracao" name="declaracao" required />
+                <!-- <mat-form-field
+                    appearence="outline"
+                    [formControl]="forms.get('atividadesPesquisa')!"
+                >
+                    <mat-label>
+                        Apresente um <b>resumo</b> das suas atividades de
+                        pesquisa até o momento e das atividades que ainda
+                        precisam ser desenvolvidas até a conclusão do seu curso
+                    </mat-label>
+                    <input matInput />
+                </mat-form-field> -->
 
-                <label for="dificuldade"
-                    >Está enfrentando alguma dificuldade que precisa de apoio da
-                    coordenação do curso?
-                </label>
-                <input
-                    type="radio"
-                    id="dificuldade"
-                    name="dificuldade"
-                    required
-                    value="Sim"
-                    title="Sim"
-                    text="Sim"
-                />
-                <input
-                    type="radio"
-                    id="dificuldade"
-                    name="dificuldade"
-                    required
-                    value="Não"
-                />
+                <!-- <mat-form-field
+                    appearence="outline"
+                    [formControl]="forms.get('declaracaoCCP')!"
+                >
+                    <mat-label>
+                        Você tem algo a declarar para a CCP - PPgSI que
+                        considera importante para a sua avaliação?
+                    </mat-label>
+                    <input matInput />
+                </mat-form-field> -->
 
+                <mat-radio-group [formControl]="forms.get('dificuldades')!">
+                    <mat-radio-button value="1">Sim</mat-radio-button>
+                    <mat-radio-button value="0">Não</mat-radio-button>
+                </mat-radio-group>
                 <button type="submit">Enviar</button>
             </form>
         </div>

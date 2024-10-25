@@ -46,16 +46,13 @@ export class FormularioComponent {
 
   constructor(private fb: FormBuilder) {
     this.forms = this.fb.group({
-      artigosEscrita: ['', [Validators.required, Validators.minLength(3)]],
-      artigosSubmetidos: ['', [Validators.required, Validators.email]],
-      artigosAceitos: ['', [Validators.required, Validators.minLength(6)]],
-      atividadesAcademicas: [
-        '',
-        [Validators.required, Validators.minLength(6)],
-      ],
-      atividadesPesquisa: ['', [Validators.required, Validators.minLength(6)]],
-      declaracaoCCP: ['', [Validators.required, Validators.minLength(6)]],
-      dificuldades: ['', [Validators.required, Validators.minLength(6)]],
+      artigosEscrita: ['', [Validators.required]],
+      artigosSubmetidos: ['', [Validators.required]],
+      artigosAceitos: ['', [Validators.required]],
+      atividadesAcademicas: ['', [Validators.required]],
+      atividadesPesquisa: ['', [Validators.required]],
+      declaracaoCCP: ['', [Validators.required]],
+      dificuldades: ['', [Validators.required]],
     });
   }
 }

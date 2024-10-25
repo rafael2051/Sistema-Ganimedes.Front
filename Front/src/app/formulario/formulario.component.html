@@ -1,13 +1,13 @@
-<header></header>
+<header class="g-header">
+  <h1>Sistema Ganimedes</h1>
+</header>
 
-<main>
+<main class="main-container">
   <ng-container>
     <section class="container-formulario">
-      <h1>Ganimedes</h1>
-      <h3>Formulário semestral de aluno</h3>
-
       <div class="formulario">
         <form [formGroup]="forms">
+          <h3 class="main-header">Formulário semestral do aluno</h3>
           <mat-form-field
             appearence="outline"
             [formControl]="forms.get('artigosEscrita')!"

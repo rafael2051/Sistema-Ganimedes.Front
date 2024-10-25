@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -30,8 +30,9 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.scss',
 })
-export class FormularioComponent {
+export class FormularioComponent implements OnInit {
   forms: FormGroup;
+  data: any;
   constructor(private fb: FormBuilder) {
     this.forms = this.fb.group({
       artigosEscrita: [0, Validators.required],
@@ -44,9 +45,13 @@ export class FormularioComponent {
     });
   }
 
-  public sendForm(): void {
-    //pro post
+  ngOnInit() {
+    this.getData();
   }
+
+  private getData(): void {}
+
+  public sendForm(): void {}
 
   blockNonNumberInput(event: any) {
     const allowedCharacters = [

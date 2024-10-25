@@ -19,5 +19,17 @@ namespace USP.Ganimedes.API.Controllers
             return StatusCode(200);
         }
 
+        [HttpGet("/getFormulario/{nusp:int}")]
+        public async Task<IActionResult> BuscarFormulario(int nusp)
+        {
+            var formulario = await _ganimedesAppService.ObterFormularioPorNusp(nusp);
+
+            if (formulario == null)
+            {
+                return NotFound(new { mensagem = "Formulário não encontrado para o NUSP fornecido." });
+            }
+
+            return StatusCode(200);
+        }
     }
 }

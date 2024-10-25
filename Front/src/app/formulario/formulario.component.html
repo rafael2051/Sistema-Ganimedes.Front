@@ -9,67 +9,84 @@
         <form [formGroup]="forms">
           <h3 class="main-header">Formulário semestral do aluno</h3>
           <mat-form-field
-            appearence="outline"
-            [formControl]="forms.get('artigosEscrita')!"
+            appearance="outline"
+            formControlName="artigosEscrita"
+            name="artigosEscrita"
+            ngDefaultControl
           >
             <mat-label>Artigos em fase de escrita</mat-label>
             <input matInput type="number" />
           </mat-form-field>
 
           <mat-form-field
-            appearence="outline"
-            [formControl]="forms.get('artigosSubmetidos')!"
+            appearance="outline"
+            formControlName="artigosSubmetidos"
+            name="artigosSubmetidos"
+            ngDefaultControl
           >
             <mat-label> Artigos submetidos e em fase de avaliação </mat-label>
             <input matInput type="number" />
           </mat-form-field>
 
           <mat-form-field
-            appearence="outline"
-            [formControl]="forms.get('artigosAceitos')!"
+            appearance="outline"
+            formControlName="artigosAceitos"
+            name="artigosAceitos"
+            ngDefaultControl
           >
             <mat-label>Artigos aceitos e publicados</mat-label>
             <input matInput type="number" />
           </mat-form-field>
 
           <mat-form-field
-            appearence="outline"
-            [formControl]="forms.get('atividadesAcademicas')!"
+            appearance="outline"
+            formControlName="atividadesAcademicas"
+            name="atividadesAcademicas"
+            ngDefaultControl
           >
             <mat-label>
               Atividades acadêmicas no semestre passado (congresso, visita
               técnica, intercâmbio, estágio PAE etc)
             </mat-label>
-            <input matInput />
+            <textarea matInput></textarea>
           </mat-form-field>
 
           <mat-form-field
-            appearence="outline"
-            [formControl]="forms.get('atividadesPesquisa')!"
+            appearance="outline"
+            formControlName="atividadesPesquisa"
+            name="atividadesPesquisa"
+            ngDefaultControl
           >
             <mat-label>
               Apresente um <b>resumo</b> das suas atividades de pesquisa até o
               momento e das atividades que ainda precisam ser desenvolvidas até
               a conclusão do seu curso
             </mat-label>
-            <input matInput />
+            <textarea matInput></textarea>
           </mat-form-field>
 
           <mat-form-field
-            appearence="outline"
-            [formControl]="forms.get('declaracaoCCP')!"
+            appearance="outline"
+            formControlName="declaracaoCCP"
+            name="declaracaoCCP"
+            ngDefaultControl
           >
             <mat-label>
               Você tem algo a declarar para a CCP - PPgSI que considera
               importante para a sua avaliação?
             </mat-label>
-            <input matInput />
+            <textarea matInput></textarea>
           </mat-form-field>
 
-          <mat-radio-group [formControl]="forms.get('dificuldades')!">
+          <mat-radio-group
+            formControlName="dificuldades"
+            name="dificuldades"
+            ngDefaultControl
+          >
             <mat-radio-button value="1">Sim</mat-radio-button>
             <mat-radio-button value="0">Não</mat-radio-button>
           </mat-radio-group>
+          <button type="submit">Enviar</button>
         </form>
       </div>
     </section>

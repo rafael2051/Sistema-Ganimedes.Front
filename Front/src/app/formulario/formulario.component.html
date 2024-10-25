@@ -1,26 +1,22 @@
-<header></header>
+<header class="g-header">
+  <h1>Sistema Ganimedes</h1>
+</header>
 
-<main>
-    <ng-container>
-        <section class="container-formulario">
-            <h1>Ganimedes</h1>
-            <h3>Formulário semestral de aluno</h3>
-
-            <div class="formulario">
-                <form [formGroup]="forms">
-                    <mat-form-field
-                        appearance="outline"
-                        formControlName="artigosEscrita"
-                        name="artigosEscrita"
-                        ngDefaultControl
-                    >
-                        <mat-label>Artigos em fase de escrita</mat-label>
-                        <input
-                            matInput
-                            type="number"
-                            (keydown)="blockNonNumberInput($event)"
-                        />
-                    </mat-form-field>
+<main class="main-container">
+  <ng-container>
+    <section class="container-formulario">
+      <div class="formulario">
+        <form [formGroup]="forms">
+          <h3 class="main-header">Formulário semestral do aluno</h3>
+          <mat-form-field
+            appearance="outline"
+            formControlName="artigosEscrita"
+            name="artigosEscrita"
+            ngDefaultControl
+          >
+            <mat-label>Artigos em fase de escrita</mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
 
                     <mat-form-field
                         appearance="outline"
@@ -34,6 +30,15 @@
                         </mat-label>
                         <input matInput type="number" />
                     </mat-form-field>
+          <mat-form-field
+            appearance="outline"
+            formControlName="artigosSubmetidos"
+            name="artigosSubmetidos"
+            ngDefaultControl
+          >
+            <mat-label> Artigos submetidos e em fase de avaliação </mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
 
                     <mat-form-field
                         appearance="outline"
@@ -45,6 +50,15 @@
                         <mat-label>Artigos aceitos e publicados</mat-label>
                         <input matInput type="number" />
                     </mat-form-field>
+          <mat-form-field
+            appearance="outline"
+            formControlName="artigosAceitos"
+            name="artigosAceitos"
+            ngDefaultControl
+          >
+            <mat-label>Artigos aceitos e publicados</mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
 
                     <mat-form-field
                         appearance="outline"
@@ -59,6 +73,18 @@
                         </mat-label>
                         <textarea matInput></textarea>
                     </mat-form-field>
+          <mat-form-field
+            appearance="outline"
+            formControlName="atividadesAcademicas"
+            name="atividadesAcademicas"
+            ngDefaultControl
+          >
+            <mat-label>
+              Atividades acadêmicas no semestre passado (congresso, visita
+              técnica, intercâmbio, estágio PAE etc)
+            </mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
 
                     <mat-form-field
                         appearance="outline"
@@ -74,35 +100,44 @@
                         </mat-label>
                         <textarea matInput></textarea>
                     </mat-form-field>
+          <mat-form-field
+            appearance="outline"
+            formControlName="atividadesPesquisa"
+            name="atividadesPesquisa"
+            ngDefaultControl
+          >
+            <mat-label>
+              Apresente um <b>resumo</b> das suas atividades de pesquisa até o
+              momento e das atividades que ainda precisam ser desenvolvidas até
+              a conclusão do seu curso
+            </mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
 
-                    <mat-form-field
-                        appearance="outline"
-                        formControlName="declaracaoCCP"
-                        name="declaracaoCCP"
-                        ngDefaultControl
-                    >
-                        <mat-label>
-                            Você tem algo a declarar para a CCP - PPgSI que
-                            considera importante para a sua avaliação?
-                        </mat-label>
-                        <textarea matInput></textarea>
-                    </mat-form-field>
+          <mat-form-field
+            appearance="outline"
+            formControlName="declaracaoCCP"
+            name="declaracaoCCP"
+            ngDefaultControl
+          >
+            <mat-label>
+              Você tem algo a declarar para a CCP - PPgSI que considera
+              importante para a sua avaliação?
+            </mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
 
-                    <mat-radio-group
-                        formControlName="dificuldades"
-                        name="dificuldades"
-                        ngDefaultControl
-                    >
-                        <mat-label>
-                            Está enfrentando algma dificuldade que precisa de
-                            apoio da coordenação do curso?
-                        </mat-label>
-                        <mat-radio-button value="1">Sim</mat-radio-button>
-                        <mat-radio-button value="0">Não</mat-radio-button>
-                    </mat-radio-group>
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
-        </section>
-    </ng-container>
+          <mat-radio-group
+            formControlName="dificuldades"
+            name="dificuldades"
+            ngDefaultControl
+          >
+            <mat-radio-button value="1">Sim</mat-radio-button>
+            <mat-radio-button value="0">Não</mat-radio-button>
+          </mat-radio-group>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </section>
+  </ng-container>
 </main>

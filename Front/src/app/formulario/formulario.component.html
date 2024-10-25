@@ -1,11 +1,17 @@
 <header class="g-header">
-  <h1>Sistema Ganimedes</h1>
+  <h1>Ganimedes</h1>
 </header>
 
 <main class="main-container">
   <ng-container>
     <section class="container-formulario">
-      <h3 class="main-header">Formulário semestral do aluno</h3>
+      <div>
+        <h3 class="main-header">
+          Formulário semestral do aluno
+          <span class="material-symbols-outlined"> description </span>
+        </h3>
+      </div>
+
       <div class="formulario">
         <form [formGroup]="forms">
           <div class="grid-container">
@@ -114,6 +120,7 @@
           <footer class="footer">
             <button type="submit" class="send-btn" (clicked)="sendForm()">
               Enviar
+              <span class="material-symbols-outlined"> send </span>
             </button>
           </footer>
         </form>

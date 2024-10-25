@@ -5,38 +5,40 @@
 <main class="main-container">
   <ng-container>
     <section class="container-formulario">
+      <h3 class="main-header">Formulário semestral do aluno</h3>
       <div class="formulario">
         <form [formGroup]="forms">
-          <h3 class="main-header">Formulário semestral do aluno</h3>
-          <mat-form-field
-            appearance="outline"
-            formControlName="artigosEscrita"
-            name="artigosEscrita"
-            ngDefaultControl
-          >
-            <mat-label>Artigos em fase de escrita</mat-label>
-            <input matInput type="number" />
-          </mat-form-field>
+          <div class="grid-container">
+            <mat-form-field
+              appearance="outline"
+              formControlName="artigosEscrita"
+              name="artigosEscrita"
+              ngDefaultControl
+            >
+              <mat-label>Artigos em fase de escrita</mat-label>
+              <input matInput type="number" />
+            </mat-form-field>
 
-          <mat-form-field
-            appearance="outline"
-            formControlName="artigosSubmetidos"
-            name="artigosSubmetidos"
-            ngDefaultControl
-          >
-            <mat-label> Artigos submetidos e em fase de avaliação </mat-label>
-            <input matInput type="number" />
-          </mat-form-field>
+            <mat-form-field
+              appearance="outline"
+              formControlName="artigosSubmetidos"
+              name="artigosSubmetidos"
+              ngDefaultControl
+            >
+              <mat-label> Artigos submetidos e em fase de avaliação </mat-label>
+              <input matInput type="number" />
+            </mat-form-field>
 
-          <mat-form-field
-            appearance="outline"
-            formControlName="artigosAceitos"
-            name="artigosAceitos"
-            ngDefaultControl
-          >
-            <mat-label>Artigos aceitos e publicados</mat-label>
-            <input matInput type="number" />
-          </mat-form-field>
+            <mat-form-field
+              appearance="outline"
+              formControlName="artigosAceitos"
+              name="artigosAceitos"
+              ngDefaultControl
+            >
+              <mat-label>Artigos aceitos e publicados</mat-label>
+              <input matInput type="number" />
+            </mat-form-field>
+          </div>
 
           <mat-form-field
             appearance="outline"
@@ -86,13 +88,14 @@
             <mat-radio-button value="1">Sim</mat-radio-button>
             <mat-radio-button value="0">Não</mat-radio-button>
           </mat-radio-group>
-          <button type="submit">Enviar</button>
+
+          <footer class="footer">
+            <button type="submit" class="send-btn" (clicked)="sendForm()">
+              Enviar
+            </button>
+          </footer>
         </form>
       </div>
     </section>
   </ng-container>
 </main>
-
-<footer>
-  <button type="submit">Enviar</button>
-</footer>

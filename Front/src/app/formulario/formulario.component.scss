@@ -2,16 +2,40 @@
   padding: 16px 32px;
   display: flex;
   flex-direction: column;
-  background-color: rgb(150, 209, 179);
-  border-radius: 20px;
 }
 
 .main-container {
-  margin: 40px 52px;
+  padding: 40px 52px;
+  background-color: #e2f1e7;
 }
 
 .main-header {
+  padding: 8px 16px 0;
   display: flex;
-  align-self: center;
   font-weight: 500;
+  color: #243642;
+  justify-content: center;
+}
+
+.footer {
+  padding: 24px 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.send-btn {
+  padding: 12px 24px;
+  border: 0 solid #387478;
+  border-radius: 7px;
+}
+
+.grid-container {
+  gap: 8px 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+}
+
+.container-formulario {
+  background-color: #629584;
+  border-radius: 20px;
 }

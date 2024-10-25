@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,13 +6,13 @@ import {
   FormsModule,
   ReactiveFormsModule,
   Validators,
-} from "@angular/forms";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatRadioModule } from "@angular/material/radio";
-import { MatSelectModule } from "@angular/material/select";
+} from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-formulario',
@@ -27,8 +27,8 @@ import { MatSelectModule } from "@angular/material/select";
     MatSelectModule,
     MatIconModule,
   ],
-  templateUrl: "./formulario.component.html",
-  styleUrl: "./formulario.component.scss",
+  templateUrl: './formulario.component.html',
+  styleUrl: './formulario.component.scss',
 })
 export class FormularioComponent {
   forms: FormGroup;
@@ -37,10 +37,14 @@ export class FormularioComponent {
       artigosEscrita: [0, Validators.required],
       artigosSubmetidos: [0, Validators.required],
       artigosAceitos: [0, Validators.required],
-      atividadesAcademicas: ["", Validators.required],
-      atividadesPesquisa: ["", Validators.required],
-      declaracaoCCP: ["", Validators.required],
-      dificuldades: ["", Validators.required],
+      atividadesAcademicas: ['', Validators.required],
+      atividadesPesquisa: ['', Validators.required],
+      declaracaoCCP: ['', Validators.required],
+      dificuldades: ['', Validators.required],
     });
+  }
+
+  public sendForm(): void {
+    //pro post
   }
 }

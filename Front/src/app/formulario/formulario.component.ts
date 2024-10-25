@@ -15,7 +15,7 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 
 @Component({
-  selector: "app-formulario",
+  selector: 'app-formulario',
   standalone: true,
   imports: [
     ReactiveFormsModule,

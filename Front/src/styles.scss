@@ -29,23 +29,21 @@ h3,
 h4,
 h5 {
   margin: 0 !important;
-  font-size: medium !important;
+  font-size: 32px;
 }
 
 .g-header {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   background-color: #387478;
   color: #e9eed9;
-  font-size: large !important;
-}
-
-.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  font-size: 24px;
+  padding-left: 52px;
 }
 
 .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label {
-  color: aliceblue !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -58,4 +56,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.material-symbols-outlined {
+  font-weight: lighter;
 }

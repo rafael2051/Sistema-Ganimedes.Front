@@ -1,44 +1,46 @@
-import { Component, forwardRef } from "@angular/core";
-import { MatSelectModule } from "@angular/material/select";
-import { MatInputModule } from "@angular/material/input";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatRadioModule } from "@angular/material/radio";
+import { Component } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
-  NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
+  Validators,
 } from "@angular/forms";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatSelectModule } from "@angular/material/select";
+
 @Component({
   selector: "app-formulario",
   standalone: true,
   imports: [
-    FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule,
-    MatRadioModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
+    MatCheckboxModule,
+    MatRadioModule,
     MatSelectModule,
     MatIconModule,
   ],
   templateUrl: "./formulario.component.html",
   styleUrl: "./formulario.component.scss",
-  providers: [],
 })
 export class FormularioComponent {
-  public forms = new FormGroup({
-    artigosEscrita: new FormControl(0),
-    artigosSubmetidos: new FormControl(0),
-    artigosAceitos: new FormControl(0),
-    atividadesAcademicas: new FormControl(""),
-    atividadesPesquisa: new FormControl(""),
-    declaracaoCCP: new FormControl(""),
-    dificuldades: new FormControl(""),
-  });
-  constructor() {}
+  forms: FormGroup;
+  constructor(private fb: FormBuilder) {
+    this.forms = this.fb.group({
+      artigosEscrita: [0, Validators.required],
+      artigosSubmetidos: [0, Validators.required],
+      artigosAceitos: [0, Validators.required],
+      atividadesAcademicas: ["", Validators.required],
+      atividadesPesquisa: ["", Validators.required],
+      declaracaoCCP: ["", Validators.required],
+      dificuldades: ["", Validators.required],
+    });
+  }
 }

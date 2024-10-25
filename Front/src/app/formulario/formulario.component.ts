@@ -1,8 +1,8 @@
-import { Component, forwardRef } from "@angular/core";
-import { MatSelectModule } from "@angular/material/select";
-import { MatInputModule } from "@angular/material/input";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatRadioModule } from "@angular/material/radio";
+import { Component, forwardRef } from '@angular/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
 import {
   FormBuilder,
   FormControl,
@@ -10,11 +10,12 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
-} from "@angular/forms";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatIconModule } from "@angular/material/icon";
+  Validators,
+} from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
-  selector: "app-formulario",
+  selector: 'app-formulario',
   standalone: true,
   imports: [
     FormsModule,
@@ -26,19 +27,32 @@ import { MatIconModule } from "@angular/material/icon";
     MatSelectModule,
     MatIconModule,
   ],
-  templateUrl: "./formulario.component.html",
-  styleUrl: "./formulario.component.scss",
+  templateUrl: './formulario.component.html',
+  styleUrl: './formulario.component.scss',
   providers: [],
 })
 export class FormularioComponent {
-  public forms = new FormGroup({
-    artigosEscrita: new FormControl(0),
-    artigosSubmetidos: new FormControl(0),
-    artigosAceitos: new FormControl(0),
-    atividadesAcademicas: new FormControl(""),
-    atividadesPesquisa: new FormControl(""),
-    declaracaoCCP: new FormControl(""),
-    dificuldades: new FormControl(""),
-  });
-  constructor() {}
+  // public forms = new FormGroup({
+  //   artigosEscrita: new FormControl(0),
+  //   artigosSubmetidos: new FormControl(0),
+  //   artigosAceitos: new FormControl(0),
+  //   atividadesAcademicas: new FormControl(""),
+  //   atividadesPesquisa: new FormControl(""),
+  //   declaracaoCCP: new FormControl(""),
+  //   dificuldades: new FormControl(""),
+  // });
+
+  forms: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.forms = this.fb.group({
+      artigosEscrita: ['', [Validators.required]],
+      artigosSubmetidos: ['', [Validators.required]],
+      artigosAceitos: ['', [Validators.required]],
+      atividadesAcademicas: ['', [Validators.required]],
+      atividadesPesquisa: ['', [Validators.required]],
+      declaracaoCCP: ['', [Validators.required]],
+      dificuldades: ['', [Validators.required]],
+    });
+  }
 }

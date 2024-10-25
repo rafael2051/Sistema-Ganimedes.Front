@@ -1,76 +1,81 @@
-<ng-container>
+<header></header>
+
+<main>
+  <ng-container>
     <section class="container-formulario">
-        <h1>Ganimedes</h1>
-        <h3>Formulário semestral de aluno</h3>
+      <h1>Ganimedes</h1>
+      <h3>Formulário semestral de aluno</h3>
 
-        <div class="formulario">
-            <form [formGroup]="forms">
-                <mat-form-field
-                    appearence="outline"
-                    [formControl]="forms.get('artigosEscrita')!"
-                >
-                    <mat-label>Artigos em fase de escrita</mat-label>
-                    <input matInput type="number" />
-                </mat-form-field>
+      <div class="formulario">
+        <form [formGroup]="forms">
+          <mat-form-field
+            appearence="outline"
+            [formControl]="forms.get('artigosEscrita')!"
+          >
+            <mat-label>Artigos em fase de escrita</mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
 
-                <mat-form-field
-                    appearence="outline"
-                    [formControl]="forms.get('artigosSubmetidos')!"
-                >
-                    <mat-label>
-                        Artigos submetidos e em fase de avaliação
-                    </mat-label>
-                    <input matInput type="number" />
-                </mat-form-field>
+          <mat-form-field
+            appearence="outline"
+            [formControl]="forms.get('artigosSubmetidos')!"
+          >
+            <mat-label> Artigos submetidos e em fase de avaliação </mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
 
-                <!-- <mat-form-field
-                    appearence="outline"
-                    [formControl]="forms.get('artigosAceitos')!"
-                >
-                    <mat-label>Artigos aceitos e publicados</mat-label>
-                    <input matInput type="number" />
-                </mat-form-field> -->
+          <mat-form-field
+            appearence="outline"
+            [formControl]="forms.get('artigosAceitos')!"
+          >
+            <mat-label>Artigos aceitos e publicados</mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
 
-                <!-- <mat-form-field
-                    appearence="outline"
-                    [formControl]="forms.get('atividadesAcademicas')!"
-                >
-                    <mat-label>
-                        Atividades acadêmicas no semestre passado (congresso,
-                        visita técnica, intercâmbio, estágio PAE etc)
-                    </mat-label>
-                    <input matInput />
-                </mat-form-field> -->
+          <mat-form-field
+            appearence="outline"
+            [formControl]="forms.get('atividadesAcademicas')!"
+          >
+            <mat-label>
+              Atividades acadêmicas no semestre passado (congresso, visita
+              técnica, intercâmbio, estágio PAE etc)
+            </mat-label>
+            <input matInput />
+          </mat-form-field>
 
-                <!-- <mat-form-field
-                    appearence="outline"
-                    [formControl]="forms.get('atividadesPesquisa')!"
-                >
-                    <mat-label>
-                        Apresente um <b>resumo</b> das suas atividades de
-                        pesquisa até o momento e das atividades que ainda
-                        precisam ser desenvolvidas até a conclusão do seu curso
-                    </mat-label>
-                    <input matInput />
-                </mat-form-field> -->
+          <mat-form-field
+            appearence="outline"
+            [formControl]="forms.get('atividadesPesquisa')!"
+          >
+            <mat-label>
+              Apresente um <b>resumo</b> das suas atividades de pesquisa até o
+              momento e das atividades que ainda precisam ser desenvolvidas até
+              a conclusão do seu curso
+            </mat-label>
+            <input matInput />
+          </mat-form-field>
 
-                <!-- <mat-form-field
-                    appearence="outline"
-                    [formControl]="forms.get('declaracaoCCP')!"
-                >
-                    <mat-label>
-                        Você tem algo a declarar para a CCP - PPgSI que
-                        considera importante para a sua avaliação?
-                    </mat-label>
-                    <input matInput />
-                </mat-form-field> -->
+          <mat-form-field
+            appearence="outline"
+            [formControl]="forms.get('declaracaoCCP')!"
+          >
+            <mat-label>
+              Você tem algo a declarar para a CCP - PPgSI que considera
+              importante para a sua avaliação?
+            </mat-label>
+            <input matInput />
+          </mat-form-field>
 
-                <mat-radio-group [formControl]="forms.get('dificuldades')!">
-                    <mat-radio-button value="1">Sim</mat-radio-button>
-                    <mat-radio-button value="0">Não</mat-radio-button>
-                </mat-radio-group>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
+          <mat-radio-group [formControl]="forms.get('dificuldades')!">
+            <mat-radio-button value="1">Sim</mat-radio-button>
+            <mat-radio-button value="0">Não</mat-radio-button>
+          </mat-radio-group>
+        </form>
+      </div>
     </section>
-</ng-container>
+  </ng-container>
+</main>
+
+<footer>
+  <button type="submit">Enviar</button>
+</footer>

@@ -1,9 +1,17 @@
-.container-formulario {
-    height: 100vh;
+.formulario form {
+  padding: 16px 32px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(150, 209, 179);
+  border-radius: 20px;
 }
 
-.formulario form {
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
+.main-container {
+  margin: 40px 52px;
+}
+
+.main-header {
+  display: flex;
+  align-self: center;
+  font-weight: 500;
 }

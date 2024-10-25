@@ -32,18 +32,8 @@ h5 {
   font-size: 32px;
 }
 
-.g-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: #387478;
-  color: #e9eed9;
-  font-size: 24px;
-  padding-left: 52px;
-}
-
 .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label {
-  color: rgb(0, 0, 0) !important;
+  color: #16423c !important;
 }
 
 /* Chrome, Safari, Edge, Opera */

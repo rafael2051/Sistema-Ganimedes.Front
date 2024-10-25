@@ -1,7 +1,15 @@
 .formulario form {
-  padding: 16px 32px;
+  padding: 24px 32px;
   display: flex;
   flex-direction: column;
+}
+
+.g-header {
+  display: flex;
+  background-color: #387478;
+  color: #e9eed9;
+  font-size: 24px;
+  padding: 12px 52px;
 }
 
 .main-container {
@@ -10,7 +18,7 @@
 }
 
 .main-header {
-  padding: 8px 16px 0;
+  padding: 16px 16px 8px;
   display: flex;
   font-weight: 500;
   color: #243642;
@@ -56,4 +64,11 @@
 .container-formulario {
   background-color: #e2f1e7;
   border-radius: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }

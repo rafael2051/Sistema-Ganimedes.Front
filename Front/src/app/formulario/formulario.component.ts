@@ -47,4 +47,26 @@ export class FormularioComponent {
   public sendForm(): void {
     //pro post
   }
+
+  blockNonNumberInput(event: any) {
+    const allowedCharacters = [
+      'Backspace',
+      'Delete',
+      'ArrowLeft',
+      'ArrowRight',
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '0',
+    ];
+    if (!allowedCharacters.find((item) => item === event.key)) {
+      event.preventDefault();
+    }
+  }
 }

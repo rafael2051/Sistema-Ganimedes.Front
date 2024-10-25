@@ -42,6 +42,28 @@
 
           <mat-form-field
             appearance="outline"
+            formControlName="artigosSubmetidos"
+            name="artigosSubmetidos"
+            ngDefaultControl
+            (keydown)="blockNonNumberInput($event)"
+          >
+            <mat-label> Artigos submetidos e em fase de avaliação </mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            formControlName="artigosAceitos"
+            name="artigosAceitos"
+            ngDefaultControl
+            (keydown)="blockNonNumberInput($event)"
+          >
+            <mat-label>Artigos aceitos e publicados</mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
             formControlName="atividadesAcademicas"
             name="atividadesAcademicas"
             ngDefaultControl

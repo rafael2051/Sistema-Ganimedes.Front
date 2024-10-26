@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1 {
+  font-size: medium;
+}
+
+h3 {
+  font-size: small;
+}
+
+.mat-display-large,
+.mat-typography .mat-display-large,
+.mat-typography h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0 !important;
+  font-size: 32px;
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: #16423c !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.material-symbols-outlined {
+  font-weight: lighter;
+}

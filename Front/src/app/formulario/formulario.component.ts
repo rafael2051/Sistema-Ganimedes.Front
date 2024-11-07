@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -70,6 +69,7 @@ export class FormularioComponent implements OnInit {
       "8",
       "9",
       "0",
+      "Tab",
     ];
     if (!allowedCharacters.find((item) => item === event.key)) {
       event.preventDefault();

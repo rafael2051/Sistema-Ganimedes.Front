@@ -1,10 +1,3 @@
-<header class="g-header">
-    <div class="header-container">
-        <h1>Ganimedes</h1>
-        <span class="material-symbols-outlined"> logout </span>
-    </div>
-</header>
-
 <main class="main-container">
     <ng-container>
         <section class="container-formulario">
@@ -16,7 +9,7 @@
             </div>
 
             <div class="formulario">
-                <form [formGroup]="forms">
+                <form [formGroup]="formAluno">
                     <div class="grid-container">
                         <mat-form-field
                             appearance="outline"
@@ -29,6 +22,7 @@
                                 matInput
                                 type="number"
                                 (keydown)="blockNonNumberInput($event)"
+                                [disabled]="formAlunoDesabilitado"
                             />
                         </mat-form-field>
 
@@ -45,6 +39,7 @@
                                 matInput
                                 type="number"
                                 (keydown)="blockNonNumberInput($event)"
+                                [disabled]="formAlunoDesabilitado"
                             />
                         </mat-form-field>
 
@@ -59,6 +54,7 @@
                                 matInput
                                 type="number"
                                 (keydown)="blockNonNumberInput($event)"
+                                [disabled]="formAlunoDesabilitado"
                             />
                         </mat-form-field>
                     </div>
@@ -74,7 +70,10 @@
                             (congresso, visita técnica, intercâmbio, estágio PAE
                             etc)
                         </mat-label>
-                        <textarea matInput></textarea>
+                        <textarea
+                            matInput
+                            [disabled]="formAlunoDesabilitado"
+                        ></textarea>
                     </mat-form-field>
 
                     <mat-form-field
@@ -89,7 +88,10 @@
                             precisam ser desenvolvidas até a conclusão do seu
                             curso
                         </mat-label>
-                        <textarea matInput></textarea>
+                        <textarea
+                            matInput
+                            [disabled]="formAlunoDesabilitado"
+                        ></textarea>
                     </mat-form-field>
 
                     <mat-form-field
@@ -102,7 +104,10 @@
                             Você tem algo a declarar para a CCP - PPgSI que
                             considera importante para a sua avaliação?
                         </mat-label>
-                        <textarea matInput></textarea>
+                        <textarea
+                            matInput
+                            [disabled]="formAlunoDesabilitado"
+                        ></textarea>
                     </mat-form-field>
 
                     <mat-radio-group
@@ -110,11 +115,25 @@
                         name="dificuldades"
                         ngDefaultControl
                     >
-                        <mat-label>
+                        <mat-label
+                            class="{{
+                                formAlunoDesabilitado
+                                    ? 'texto-desabilitado'
+                                    : ''
+                            }}"
+                        >
                             Você está enfrentando dificuldades no curso?
                         </mat-label>
-                        <mat-radio-button value="1">Sim</mat-radio-button>
-                        <mat-radio-button value="0">Não</mat-radio-button>
+                        <mat-radio-button
+                            value="1"
+                            [disabled]="formAlunoDesabilitado"
+                            >Sim</mat-radio-button
+                        >
+                        <mat-radio-button
+                            value="0"
+                            [disabled]="formAlunoDesabilitado"
+                            >Não</mat-radio-button
+                        >
                     </mat-radio-group>
 
                     <mat-radio-group
@@ -122,27 +141,73 @@
                         name="conceitosDivulgados"
                         ngDefaultControl
                     >
-                        <mat-label>
+                        <mat-label
+                            class="{{
+                                formAlunoDesabilitado
+                                    ? 'texto-desabilitado'
+                                    : ''
+                            }}"
+                        >
                             Todas as disciplinas cursadas no semestre já tiveram
                             seu conceito divulgado?
                         </mat-label>
-                        <mat-radio-button value="1">Sim</mat-radio-button>
-                        <mat-radio-button value="0">Não</mat-radio-button>
-                    </mat-radio-group>
-
-                    <footer class="footer">
-                        <button
-                            type="submit"
-                            class="send-btn"
-                            (clicked)="sendForm()"
+                        <mat-radio-button
+                            value="1"
+                            [disabled]="formAlunoDesabilitado"
+                            >Sim</mat-radio-button
                         >
-                            Enviar
-                            <span class="material-symbols-outlined">
-                                send
-                            </span>
-                        </button>
-                    </footer>
+                        <mat-radio-button
+                            value="0"
+                            [disabled]="formAlunoDesabilitado"
+                            >Não</mat-radio-button
+                        >
+                    </mat-radio-group>
                 </form>
+
+                @if (exibeParecerDocente) {
+                    <form [formGroup]="formDocente">
+                        <mat-form-field
+                            appearance="outline"
+                            formControlName="parecerDocente"
+                            name="parecerDocente"
+                            ngDefaultControl
+                        >
+                            <mat-label>Parecer do docente orientador</mat-label>
+                            <textarea
+                                matInput
+                                [disabled]="parecerDocenteDesabilitado"
+                            ></textarea>
+                        </mat-form-field>
+                    </form>
+                }
+
+                @if (exibeParecerCCP) {
+                    <form [formGroup]="formCCP">
+                        <mat-form-field
+                            appearance="outline"
+                            formControlName="parecerCCP"
+                            name="parecerCCP"
+                            ngDefaultControl
+                        >
+                            <mat-label>Parecer da CCP</mat-label>
+                            <textarea
+                                matInput
+                                [disabled]="parecerCCPDesabilitado"
+                            ></textarea>
+                        </mat-form-field>
+                    </form>
+                }
+
+                <div class="footer">
+                    <button
+                        type="submit"
+                        class="send-btn"
+                        (clicked)="sendForm()"
+                    >
+                        Enviar
+                        <span class="material-symbols-outlined"> send </span>
+                    </button>
+                </div>
             </div>
         </section>
     </ng-container>

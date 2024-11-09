@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -13,6 +13,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
+import { Usuario } from "../../models/usuario.model";
 
 @Component({
   selector: "app-formulario",
@@ -36,8 +37,7 @@ export class FormularioComponent implements OnInit {
   formCCP: FormGroup;
   data: any;
 
-  // TODO: Variável que representa o perfil. O valor dessa variável será determinada no login
-  perfil: "aluno" | "docente" | "ccp" = "docente";
+  @Input() usuario: Usuario;
 
   //Controle Formulários
   //Aluno
@@ -76,17 +76,17 @@ export class FormularioComponent implements OnInit {
   ngOnInit() {
     this.getData();
     this.controleFormularios();
-    console.log("O perfil deste usuário é", this.perfil);
+    console.log("O perfil deste usuário é", this.usuario.perfil);
   }
 
   private controleFormularios() {
-    if (this.perfil === "aluno") {
+    if (this.usuario.perfil === "aluno") {
       //TODO: implementar o controle que verifica se o formulário do aluno deve estar habilitado ou não.
       // O formulário deve estar habilitado apenas se a data de vencimento for maior que a data atual.
       // A data de vencimento deve ser fornecida pelo backend
 
       this.formAlunoDesabilitado = false;
-    } else if (this.perfil === "docente") {
+    } else if (this.usuario.perfil === "docente") {
       this.parecerDocenteDesabilitado = false;
       this.exibeParecerDocente = true;
     } else {

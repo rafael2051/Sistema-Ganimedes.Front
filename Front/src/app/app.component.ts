@@ -4,18 +4,18 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from './services/AuthService';
 import { AuthGuard } from './utils/AuthGuard';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { routes } from './app.routes';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, HttpClientModule],
+  imports: [MatIconModule, RouterModule, HttpClientModule],
   providers: [AuthGuard, AuthService, HttpClient],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  @Input() textoFormulario: 'Formulário' | 'Formulários Alunos' = 'Formulário';
-  @Input() usuario: Usuario;
+  textoFormulario: 'Formulário' | 'Formulários Alunos' = 'Formulário';
+  usuario: Usuario;
 
   constructor() {
     this.usuario = new Aluno(

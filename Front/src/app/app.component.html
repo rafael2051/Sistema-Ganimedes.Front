@@ -1,16 +1,20 @@
 <header>
-    <nav class="navbar">
-        <div class="container-links">
-            <h1>Ganimedes</h1>
-            <a routerLink="formulario">{{ textoFormulario }}</a>
-            <a routerLink="historico">Histórico</a>
-        </div>
-        <div class="container-perfil">
-            <div class="circulo-perfil">
-                <mat-icon fontIcon="person"></mat-icon>
-            </div>
-            <span class="material-symbols-outlined"> logout </span>
-        </div>
-    </nav>
+  @if (usuario.logado) {
+  <nav class="navbar">
+    <div class="container-links">
+      <a routerLink="perfil" class="no-decoration-title"><h1>Ganimedes</h1></a>
+      <a routerLink="formulario">{{ textoFormulario }}</a>
+      <a routerLink="historico">Histórico</a>
+    </div>
+    <div class="container-perfil">
+      <div class="circulo-perfil">
+        <a routerLink="perfil">
+          <mat-icon fontIcon="person"></mat-icon>
+        </a>
+      </div>
+      <mat-icon fontIcon="logout"></mat-icon>
+    </div>
+  </nav>
+  }
 </header>
 <router-outlet></router-outlet>

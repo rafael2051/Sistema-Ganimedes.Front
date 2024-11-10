@@ -1,22 +1,19 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Usuario } from '../models/usuario.model';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
-  private isLoggedInStatus = false;
+  //TODO: Implementar a URL da API
+  private apiUrl = 'https://api.exemplo.com/usuario'; // URL da API
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  login() {
-    this.isLoggedInStatus = true;
-  }
-
-  logout() {
-    this.isLoggedInStatus = false;
-  }
-
-  isLoggedIn(): boolean {
-    return this.isLoggedInStatus;
+  //TODO: Implementar uma validação de tipo
+  getUsuario(credentials: any): Observable<Usuario> {
+    return this.http.get<Usuario>(this.apiUrl);
   }
 }

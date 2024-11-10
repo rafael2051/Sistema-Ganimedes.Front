@@ -1,4 +1,6 @@
-# Sistema-Ganimedes
+# Sistema Ganimedes
+
+# ATENÇÃO: O projeto do frontend foi alterado por um motivo técnico. Faça alterações a partir do projeto da branch master
 
 - Para alterar os formulários liberados, altere o valor da variável perfil no FormularioComponent. A variável assume três possíveis valores: `aluno`, `docente` ou `ccp`. A ideia é que essa variável seja atribuída após o login ser realizado e o dado venha do backend.
 

@@ -1,0 +1,70 @@
+.container-dados-perfil {
+    height: 100%;
+    width: 100%;
+
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    height: 100%;
+    width: 100%;
+}
+
+.form-linha-1 {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 4rem;
+}
+
+.text-fields-group {
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+    width: 60%;
+}
+
+.datepickers-group {
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+    width: 30%;
+}
+
+.form-linha-2 {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 4rem;
+}
+
+.radio-button-group {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.form-linha-3 {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 4rem;
+}
+
+.form-linha-3 mat-form-field {
+    width: 30%;
+}
+
+.form-linha-4 {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.form-linha-4 * {
+    margin-right: 2.5rem;
+}
+
+a {
+    text-decoration: none;
+}

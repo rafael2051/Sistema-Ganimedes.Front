@@ -1,3 +1,157 @@
 <main>
-  <form [formGroup]="formPerfil"></form>
+    <div class="container-dados-perfil">
+        <form [formGroup]="formPerfil" class="form-dados-perfil">
+            <mat-form-field
+                appearance="outline"
+                formControlName="email"
+                name="email"
+                ngDefaultControl
+            >
+                <mat-label>E-mail</mat-label>
+                <input
+                    matInput
+                    #input
+                    type="text"
+                    [disabled]="edicaoDesabilitada"
+                />
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                formControlName="linkLattes"
+                name="linkLattes"
+                ngDefaultControl
+            >
+                <mat-label>Link Lattes</mat-label>
+                <input
+                    matInput
+                    #input
+                    type="url"
+                    [disabled]="edicaoDesabilitada"
+                />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Data de atualização do Lattes</mat-label>
+                <input
+                    matInput
+                    [matDatepicker]="dtLattesPicker"
+                    formControlName="dtLattes"
+                    disabled
+                />
+                <mat-hint>DD/MM/AAAA</mat-hint>
+                <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="dtLattesPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                    #dtLattesPicker
+                    disabled="false"
+                ></mat-datepicker>
+            </mat-form-field>
+
+            <mat-label>Curso</mat-label>
+            <mat-radio-group formControlName="curso">
+                <mat-radio-button [value]="'Mestrado'">
+                    Mestrado
+                </mat-radio-button>
+                <mat-radio-button [value]="'Doutorado'">
+                    Doutorado
+                </mat-radio-button>
+            </mat-radio-group>
+
+            <!-- Substituir por ano de ingresso-->
+            <mat-form-field>
+                <mat-label>Ano de ingresso</mat-label>
+                <input
+                    matInput
+                    [matDatepicker]="anoIngressoPicker"
+                    formControlName="anoIngresso"
+                    disabled
+                />
+                <mat-hint>AAAA</mat-hint>
+                <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="anoIngressoPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                    #anoIngressoPicker
+                    startView="year"
+                    disabled="false"
+                ></mat-datepicker>
+            </mat-form-field>
+
+            <mat-label>Exame de proficiência</mat-label>
+            <mat-radio-group formControlName="exameProficiencia">
+                <mat-radio-button [value]="'Aprovado'">
+                    Aprovado
+                </mat-radio-button>
+                <mat-radio-button [value]="'Reprovado'">
+                    Reprovado
+                </mat-radio-button>
+                <mat-radio-button [value]="'Não realizado'">
+                    Não realizado
+                </mat-radio-button>
+            </mat-radio-group>
+
+            <mat-label>Exame de qualificação</mat-label>
+            <mat-radio-group formControlName="exameQualificacao">
+                <mat-radio-button [value]="'Aprovado'">
+                    Aprovado
+                </mat-radio-button>
+                <mat-radio-button [value]="'Reprovado'">
+                    Reprovado
+                </mat-radio-button>
+                <mat-radio-button [value]="'Não realizado'">
+                    Não realizado
+                </mat-radio-button>
+            </mat-radio-group>
+
+            <mat-form-field
+                appearance="outline"
+                formControlName="prazoQualificacao"
+                name="prazoQualificacao"
+                ngDefaultControl
+            >
+                <mat-label>Prazo máximo de qualificação</mat-label>
+                <input
+                    matInput
+                    #input
+                    type="date"
+                    [disabled]="edicaoDesabilitada"
+                />
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                formControlName="prazoTese"
+                name="prazoTese"
+                ngDefaultControl
+            >
+                <mat-label>Prazo máximo para o depósito da tese</mat-label>
+                <input
+                    matInput
+                    #input
+                    type="date"
+                    [disabled]="edicaoDesabilitada"
+                />
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                formControlName="orientador"
+                name="orientador"
+                ngDefaultControl
+            >
+                <mat-label>Orientador</mat-label>
+                <mat-select>
+                    @for (orientador of orientadores; track orientador) {
+                        <mat-option [value]="orientador">
+                            {{ orientador }}
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
 </main>

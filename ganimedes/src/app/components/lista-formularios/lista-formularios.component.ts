@@ -11,6 +11,8 @@ import { MatIconModule } from "@angular/material/icon";
   styleUrl: "./lista-formularios.component.css",
 })
 export class ListaFormulariosComponent {
+  // TODO: Reformular lista para ser em tabela
+
   alunos: Usuario[] = [
     new Aluno(
       "João da Silva",

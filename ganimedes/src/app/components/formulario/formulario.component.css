@@ -1,63 +1,63 @@
 .formulario form {
-  padding: 24px 32px;
-  display: flex;
-  flex-direction: column;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
 }
 
 .main-container {
-  padding: 40px 52px;
-  background: linear-gradient(to right, #74b09c, #679c8b, #568475);
+    padding: 40px 52px;
 }
 
 .main-header {
-  padding: 16px 16px 8px;
-  display: flex;
-  font-weight: 500;
-  color: #243642;
-  justify-content: center;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    padding: 16px 16px 8px;
+    display: flex;
+    font-weight: 500;
+    color: #243642;
+    justify-content: center;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-  .material-symbols-outlined {
-    font-size: 30px;
-  }
+    .material-symbols-outlined {
+        font-size: 30px;
+    }
 }
 
 .footer {
-  padding: 24px 0 0;
-  display: flex;
-  justify-content: flex-end;
+    padding: 24px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .send-btn {
-  padding: 12px 24px;
-  border: 0 solid #387478;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
-  background-color: #16423c;
-  color: aliceblue;
+    padding: 12px 24px;
+    border: 0 solid #387478;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    background-color: #1094ab;
+    color: aliceblue;
 
-  .material-symbols-outlined {
-    font-size: 20px;
-  }
+    .material-symbols-outlined {
+        font-size: 20px;
+    }
 }
 
 .grid-container {
-  gap: 8px 24px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 8px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 }
 
 .container-formulario {
-  background-color: #e2f1e7;
-  border-radius: 20px;
+    border: 2px solid #fcb421;
+    background-color: #f0f0f0;
+    border-radius: 20px;
 }
 
 .texto-desabilitado {
-  color: #989f99;
+    color: #989f99;
 }

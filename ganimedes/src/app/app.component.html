@@ -2,10 +2,15 @@
     @if (usuario.logado) {
         <nav class="navbar">
             <div class="container-links">
-                <a routerLink="perfil" class="no-decoration-title"
-                    ><h1>Ganimedes</h1></a
-                >
-                <a routerLink="formulario">{{ textoFormulario }}</a>
+                <a routerLink="perfil" class="no-decoration-title">
+                    <h1>Ganimedes</h1>
+                </a>
+
+                @if (usuario.perfil === "aluno") {
+                    <a (click)="redirecionaAluno()">Formulário</a>
+                } @else {
+                    <a routerLink="lista">Formulários dos alunos</a>
+                }
                 <a routerLink="historico">Histórico</a>
                 <a routerLink="login">Login (temporário)</a>
             </div>

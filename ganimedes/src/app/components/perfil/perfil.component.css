@@ -1,14 +1,25 @@
-.container-dados-perfil {
-    height: 100%;
-    width: 100%;
+main {
+    display: flex;
+    justify-content: center;
+}
 
-    margin-top: 1rem;
+.container-dados-perfil {
+    height: auto;
+    width: 90%;
+
+    margin: 1rem 0;
     display: flex;
     flex-direction: column;
+
+    background-color: #f0f0f0;
+
+    border: 2px solid #fcb421;
+    padding: 2rem;
+    border-radius: 20px;
 }
 
 form {
-    height: 100%;
+    height: auto;
     width: 100%;
 }
 

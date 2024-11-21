@@ -5,7 +5,7 @@ export interface Usuario {
   logado: boolean;
   token: string;
   linkLattes: string;
-  perfil: 'aluno' | 'docente' | 'ccp';
+  perfil: "aluno" | "docente" | "ccp";
 }
 
 export class Aluno implements Usuario {
@@ -16,16 +16,16 @@ export class Aluno implements Usuario {
     public logado: boolean,
     public token: string,
     public linkLattes: string,
-    public perfil: 'aluno' | 'docente' | 'ccp',
-    public curso: 'Mestrado' | 'Doutoradp',
+    public perfil: "aluno" | "docente" | "ccp",
+    public curso: "Mestrado" | "Doutorado",
     public anoIngresso: number,
-    public exameProficiencia: 'Aprovado' | 'Reprovado' | 'Não Realizado',
-    public exameQualificacao: 'Aprovado' | 'Reprovado' | 'Não Realizado',
+    public exameProficiencia: "Aprovado" | "Reprovado" | "Não Realizado",
+    public exameQualificacao: "Aprovado" | "Reprovado" | "Não Realizado",
     public prazoMaximoQualificacao: Date,
     public prazoMaximoDeposistoTese: Date,
     public orientador: string,
     public rg: string,
     public dataNascimento: Date,
-    public nacionalidade: string
+    public nacionalidade: string,
   ) {}
 }

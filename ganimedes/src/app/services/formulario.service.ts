@@ -1,9 +1,14 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Aluno, Usuario } from "../models/usuario.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class FormularioService {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  buscarDadosAluno(nusp: string) {
+    return this.http.get<Aluno>("");
+  }
 }

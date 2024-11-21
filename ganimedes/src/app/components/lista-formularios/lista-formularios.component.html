@@ -1,0 +1,10 @@
+<main>
+    <section class="container-alunos">
+        @for (aluno of alunos; track alunos) {
+            <div class="link-form-aluno" (click)="redirecionaAluno(aluno)">
+                <span class="texto-nome-aluno">{{ aluno.nomeCompleto }}</span>
+                <mat-icon>link</mat-icon>
+            </div>
+        }
+    </section>
+</main>

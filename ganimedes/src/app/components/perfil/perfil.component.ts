@@ -20,7 +20,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-perfil",
@@ -64,7 +64,10 @@ export class PerfilComponent {
 
   public anosDeIngresso: Number[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+  ) {
     this.formPerfil = this.fb.group({
       email: [
         { value: "", disabled: false },
@@ -151,5 +154,10 @@ export class PerfilComponent {
 
   desabilitaSeCCP(): boolean {
     return this.perfil === "ccp";
+  }
+
+  // TODO: modficar para redirecionar para o formulário correto, de acordo com o nusp
+  redirecionarFormulario() {
+    this.router.navigate([`/formulario/13123`]);
   }
 }

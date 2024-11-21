@@ -1,0 +1,35 @@
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.container-alunos {
+    display: flex;
+    justify-content: flex-start;
+    width: 90%;
+
+    margin: 1rem 0;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+.link-form-aluno {
+    width: 20%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    background-color: #fcb421;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.texto-nome-aluno {
+    margin-left: 1rem;
+}
+
+.mat-icon {
+    rotate: 90deg;
+}

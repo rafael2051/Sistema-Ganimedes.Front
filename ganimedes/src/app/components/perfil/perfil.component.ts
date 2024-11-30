@@ -52,14 +52,50 @@ export class PerfilComponent {
   public formPerfil: FormGroup;
   public edicaoDesabilitada = false;
 
-  public perfil: "aluno" | "orientador" | "ccp" = "aluno";
+  public perfil = sessionStorage.getItem("perfil");
   public curso = "";
 
   public orientadores = [
-    "Jaiminho, o carteiro",
-    "Mestre Yoda",
-    "Doutor Estranho",
-    "Zé do Caixão",
+    "Alexandre Ferreira Ramos",
+    "Ana Amélia Benedito Silva",
+    "André Carlos Busanelli de Aquino",
+    "Andre Cavalcanti Rocha Martins",
+    "Ariane Machado Lima",
+    "Camilo Rodrigues Neto",
+    "Cláudia Inés Garcia",
+    "Clodoaldo Aparecido de Moraes Lima",
+    "Daniel de Angelis Cordeiro",
+    "Edmir Parada Vasques Prado",
+    "Esteban Fernandez Tuesta",
+    "Fabio Nakano",
+    "Fátima de Lourdes dos Santos Nunes Marques",
+    "Fernando Auil",
+    "Flávio Luiz Coutinho",
+    "Gisele da Silva Craveiro",
+    "Helton Hideraldo Bíscaro",
+    "Ivandré Paraboni",
+    "João Luiz Bernardes Júnior",
+    "José de Jesús Pérez Alcázar",
+    "José Ricardo Gonçalves de Mendonça",
+    "Karina Valdivia Delgado",
+    "Karla Roberta Pereira Sampaio Lima",
+    "Luciane Meneguin Ortega",
+    "Luciano Antonio Digiampietri",
+    "Luciano Vieira de Araújo",
+    "Marcelo de Souza Lauretto",
+    "Marcelo Fantinato",
+    "Marcelo Medeiros Eler",
+    "Marcelo Morandini",
+    "Marcio Moretto Ribeiro",
+    "Marcos Lordello Chaim",
+    "Masayuki Oka Hase",
+    "Norton Trevisan Roman",
+    "Patrícia Rufino Oliveira",
+    "Renan Cerqueira Afonso Alves",
+    "Regis Rossi Alves Faria",
+    "Sarajane Marques Peres",
+    "Valdinei Freire da Silva",
+    "Violeta Sun",
   ];
 
   public anosDeIngresso: Number[] = [];

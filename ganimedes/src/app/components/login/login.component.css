@@ -6,15 +6,16 @@ main {
 }
 
 .container-login {
-    width: 80%;
+    width: 60%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 form {
-    width: 50%;
+    width: 80%;
     display: flex;
     flex-direction: column;
 }
@@ -24,4 +25,19 @@ form {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+}
+
+.botoes {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.botoes > button {
+    background-color: #1094ab;
+    margin-bottom: 1rem;
+}
+
+.botao-cadastrar {
+    background-color: #fcb421 !important;
 }

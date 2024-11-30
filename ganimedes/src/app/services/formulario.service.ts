@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Aluno, Usuario } from "../models/usuario.model";
+import { Aluno } from "../models/usuario.model";
 
 @Injectable({
   providedIn: "root",
@@ -8,7 +8,13 @@ import { Aluno, Usuario } from "../models/usuario.model";
 export class FormularioService {
   constructor(private http: HttpClient) {}
 
-  buscarDadosAluno(nusp: string) {
+  buscarDadosFormulario(nusp: string) {
+    console.log("nusp para a busca dos dados do formulario semestral", nusp);
     return this.http.get<Aluno>("");
+  }
+
+  salvarFormulario(form: any) {
+    console.log("dados para salvar formulario", form);
+    return this.http.post("", form);
   }
 }

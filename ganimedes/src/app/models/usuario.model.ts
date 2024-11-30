@@ -2,10 +2,8 @@ export interface Usuario {
   nomeCompleto: string;
   nusp: string;
   email: string;
-  logado: boolean;
-  token: string;
   linkLattes: string;
-  perfil: "aluno" | "docente" | "ccp";
+  perfil: "Aluno" | "Docente" | "CCP";
 }
 
 export class Aluno implements Usuario {
@@ -13,10 +11,8 @@ export class Aluno implements Usuario {
     public nomeCompleto: string,
     public nusp: string,
     public email: string,
-    public logado: boolean,
-    public token: string,
     public linkLattes: string,
-    public perfil: "aluno" | "docente" | "ccp",
+    public perfil: "Aluno" = "Aluno",
     public curso: "Mestrado" | "Doutorado",
     public anoIngresso: number,
     public exameProficiencia: "Aprovado" | "Reprovado" | "Não Realizado",
@@ -27,5 +23,15 @@ export class Aluno implements Usuario {
     public rg: string,
     public dataNascimento: Date,
     public nacionalidade: string,
+  ) {}
+}
+
+export class Docente implements Usuario {
+  constructor(
+    public nomeCompleto: string,
+    public nusp: string,
+    public email: string,
+    public linkLattes: string,
+    public perfil: "Docente" | "CCP",
   ) {}
 }

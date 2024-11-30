@@ -13,9 +13,9 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   // TODO: Implementar a lógica de login
-  login(form: any): boolean {
+  login(form: any): Observable<boolean> {
     console.log("valor do form no auth service", form);
-    return true;
+    return this.http.post<boolean>("", form);
   }
 
   //TODO: Implementar uma validação de tipo

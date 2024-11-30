@@ -6,16 +6,20 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const token = sessionStorage.getItem("token");
 
-  //TODO: Ver se a lógica funciona
   if (token) {
     const obj = JSON.parse(token);
     const now = new Date();
-    const exp = new Date(obj.expires);
+    const exp = new Date(obj);
 
-    if (exp < now) return exp >= now;
+    if (exp < now) router.navigate(["login"]);
+    return exp >= now;
   }
 
-  // TODO: mudar para false no futuro e descomentar o router
-  // router.navigate(["login"]);
-  return true;
+  router.navigate(["login"]);
+  return false;
+};
+
+export const authGuardListaFormularios: CanActivateFn = (route, state) => {
+  const perfil = sessionStorage.getItem("perfil");
+  return !(state.url === "/lista" && perfil === "Aluno");
 };

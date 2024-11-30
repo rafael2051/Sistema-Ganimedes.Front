@@ -15,7 +15,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { FormularioService } from "../../services/formulario.service";
 import { HttpHandler } from "@angular/common/http";
 import { ActivatedRoute } from "@angular/router";
-import { Aluno, Usuario } from "../../models/usuario.model";
+import { Aluno, Docente, Usuario } from "../../models/usuario.model";
 
 @Component({
   selector: "app-formulario",
@@ -38,12 +38,12 @@ export class FormularioComponent implements OnInit {
   formAluno: FormGroup;
   formDocente: FormGroup;
   formCCP: FormGroup;
-  dadosAluno: Usuario;
+
   // TODO: mudar para false depois que o serviço estiver funcionando
   public dadosCarregados: boolean = true;
 
-  // @Input() usuario: Usuario;
-  perfil: "aluno" | "docente" | "ccp" = "ccp";
+  perfil = sessionStorage.getItem("perfil");
+  usuario: Usuario;
 
   //Controle Formulários
   //Aluno
@@ -57,7 +57,6 @@ export class FormularioComponent implements OnInit {
   public exibeParecerCCP: boolean = false;
   public parecerCCPDesabilitado: boolean = true;
 
-  // constructor(private fb: FormBuilder, private authService: AuthService) {
   constructor(
     private fb: FormBuilder,
     private servico: FormularioService,
@@ -84,11 +83,19 @@ export class FormularioComponent implements OnInit {
       parecerCCP: ["", Validators.required],
     });
 
+    const temp = sessionStorage.getItem("usuario");
+    if (temp) {
+      const temp_parsed = JSON.parse(temp);
+      if (temp_parsed.perfil === "Aluno") this.usuario = temp_parsed as Aluno;
+      else this.usuario = temp_parsed as Docente;
+
+      console.log("Usuário logado:", this.usuario);
+    }
+
     let nusp: any;
     this.route.paramMap.subscribe((params) => {
       nusp = params.get("nusp");
-      // TODO: descomentar depois que o serviço estiver funcionando
-      // this.buscarDadosAluno(nusp);
+      this.buscarDadosFormulario(nusp);
     });
   }
 
@@ -98,13 +105,13 @@ export class FormularioComponent implements OnInit {
   }
 
   private controleFormularios() {
-    if (this.perfil === "aluno") {
+    if (this.perfil === "Aluno") {
       //TODO: implementar o controle que verifica se o formulário do aluno deve estar habilitado ou não.
       // O formulário deve estar habilitado apenas se a data de vencimento for maior que a data atual.
       // A data de vencimento deve ser fornecida pelo backend
 
       this.formAlunoDesabilitado = false;
-    } else if (this.perfil === "docente") {
+    } else if (this.perfil === "Docente") {
       this.parecerDocenteDesabilitado = false;
       this.exibeParecerDocente = true;
     } else {
@@ -114,14 +121,28 @@ export class FormularioComponent implements OnInit {
     }
   }
 
-  private buscarDadosAluno(nusp: any): void {
-    this.servico.buscarDadosAluno(nusp).subscribe((data) => {
-      this.dadosAluno = data;
+  private buscarDadosFormulario(nusp: any): void {
+    this.servico.buscarDadosFormulario(nusp).subscribe((data) => {
+      // TODO: atribuir dados retornados no formulário
+      // this.formAluno = data;
       this.dadosCarregados = true;
     });
   }
 
-  public sendForm(): void {}
+  public sendForm(): void {
+    if (this.perfil === "Aluno")
+      this.servico.salvarFormulario(this.formAluno.value).subscribe((res) => {
+        console.log("resposta salvamento form aluno", res);
+      });
+    else if (this.perfil === "Docente")
+      this.servico.salvarFormulario(this.formDocente.value).subscribe((res) => {
+        console.log("resposta salvamento form docente", res);
+      });
+    else
+      this.servico.salvarFormulario(this.formCCP.value).subscribe((res) => {
+        console.log("resposta salvamento form ccp", res);
+      });
+  }
 
   blockNonNumberInput(event: any) {
     const allowedCharacters = [

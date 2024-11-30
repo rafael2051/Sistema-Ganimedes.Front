@@ -1,0 +1,259 @@
+<main>
+    <section>
+        <form [formGroup]="form">
+            <div class="linha-um">
+                <mat-form-field
+                    appearance="outline"
+                    name="perfil"
+                    ngDefaultControl
+                    primeiro
+                >
+                    <mat-label>Perfil</mat-label>
+                    <mat-select
+                        formControlName="perfil"
+                        (selectionChange)="selecaoPerfil($event)"
+                    >
+                        @for (perfil of perfis; track perfil) {
+                            <mat-option [value]="perfil">
+                                {{ perfil }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field
+                    appearance="outline"
+                    name="email"
+                    ngDefaultControl
+                    segundo
+                >
+                    <mat-label>E-mail</mat-label>
+                    <input matInput type="email" formControlName="email" />
+                </mat-form-field>
+
+                <mat-form-field
+                    appearance="outline"
+                    name="nome"
+                    ngDefaultControl
+                    terceiro
+                >
+                    <mat-label>Nome completo</mat-label>
+                    <input matInput type="text" formControlName="nome" />
+                </mat-form-field>
+
+                <mat-form-field
+                    appearance="outline"
+                    name="nusp"
+                    ngDefaultControl
+                    quarto
+                >
+                    <mat-label>Número USP</mat-label>
+                    <input
+                        matInput
+                        type="text"
+                        formControlName="nusp"
+                        (keydown)="blockNonNumberInput($event)"
+                    />
+                </mat-form-field>
+            </div>
+
+            <div class="linha-dois">
+                <mat-form-field
+                    appearance="outline"
+                    name="linkLattes"
+                    ngDefaultControl
+                    primeiro
+                >
+                    <mat-label>Link Lattes</mat-label>
+                    <input matInput type="url" formControlName="linkLattes" />
+                </mat-form-field>
+
+                <mat-form-field segundo>
+                    <mat-label>Data de atualização do Lattes</mat-label>
+                    <input
+                        matInput
+                        formControlName="dtLattes"
+                        [matDatepicker]="dtLattesPicker"
+                        [max]="hoje"
+                    />
+                    <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="dtLattesPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #dtLattesPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            @if (form.controls["perfil"].value === "Aluno") {
+                <div class="linha-tres">
+                    <mat-form-field
+                        appearance="outline"
+                        name="anoIngresso"
+                        ngDefaultControl
+                    >
+                        <mat-label>Ano de ingresso</mat-label>
+                        <mat-select formControlName="anoIngresso">
+                            @for (ano of anosDeIngresso; track anosDeIngresso) {
+                                <mat-option [value]="ano">
+                                    {{ ano }}
+                                </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="radio-buttons-group">
+                        <mat-label>Curso</mat-label>
+                        <mat-radio-group formControlName="curso">
+                            <mat-radio-button [value]="'Mestrado'">
+                                Mestrado
+                            </mat-radio-button>
+                            <mat-radio-button [value]="'Doutorado'">
+                                Doutorado
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+                    <div class="radio-buttons-group">
+                        <mat-label>Exame de proficiência</mat-label>
+                        <mat-radio-group formControlName="exameProficiencia">
+                            <mat-radio-button [value]="'Aprovado'">
+                                Aprovado
+                            </mat-radio-button>
+                            <mat-radio-button [value]="'Reprovado'">
+                                Reprovado
+                            </mat-radio-button>
+                            <mat-radio-button [value]="'Não realizado'">
+                                Não realizado
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+                    <div class="radio-buttons-group">
+                        <mat-label>Exame de qualificação</mat-label>
+                        <mat-radio-group formControlName="exameQualificacao">
+                            <mat-radio-button [value]="'Aprovado'">
+                                Aprovado
+                            </mat-radio-button>
+                            <mat-radio-button [value]="'Reprovado'">
+                                Reprovado
+                            </mat-radio-button>
+                            <mat-radio-button [value]="'Não realizado'">
+                                Não realizado
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+
+                <div class="linha-quatro">
+                    <mat-form-field
+                        appearance="outline"
+                        name="orientador"
+                        ngDefaultControl
+                        primeiro
+                    >
+                        <mat-label>Orientador</mat-label>
+                        <mat-select formControlName="orientador">
+                            @for (
+                                orientador of orientadores;
+                                track orientador
+                            ) {
+                                <mat-option [value]="orientador">
+                                    {{ orientador }}
+                                </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field segundo>
+                        <mat-label>
+                            Prazo máximo para o depósito da tese
+                        </mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="prazoTesePicker"
+                            formControlName="prazoTese"
+                        />
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="prazoTesePicker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #prazoTesePicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field terceiro>
+                        <mat-label>Prazo máximo de qualificação</mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="prazoQualificacaoPicker"
+                            formControlName="prazoQualificacao"
+                        />
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="prazoQualificacaoPicker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker
+                            #prazoQualificacaoPicker
+                        ></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="linha-cinco">
+                    <mat-form-field
+                        appearance="outline"
+                        name="rg"
+                        ngDefaultControl
+                        primeiro
+                    >
+                        <mat-label>RG</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            formControlName="rg"
+                            maxlength="8"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field segundo>
+                        <mat-label>Data de nascimento</mat-label>
+                        <input
+                            matInput
+                            [matDatepicker]="dtNascimentoPicker"
+                            formControlName="dtNascimento"
+                            [max]="hoje"
+                        />
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="dtNascimentoPicker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dtNascimentoPicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        appearance="outline"
+                        name="nacionalidade"
+                        ngDefaultControl
+                        terceiro
+                    >
+                        <mat-label>Nacionalidade</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            formControlName="nacionalidade"
+                        />
+                    </mat-form-field>
+                </div>
+            }
+
+            <div class="linha-seis">
+                <button
+                    mat-flat-button
+                    [disabled]="!form.valid"
+                    type="submit"
+                    (click)="salvarCadastro()"
+                >
+                    Cadastrar
+                </button>
+            </div>
+        </form>
+    </section>
+</main>

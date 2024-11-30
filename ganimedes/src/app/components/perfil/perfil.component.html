@@ -3,7 +3,7 @@
         <form [formGroup]="formPerfil">
             <div class="form-linha-1">
                 <div class="text-fields-group">
-                    @if (perfil !== "ccp") {
+                    @if (perfil !== "CCP") {
                         <mat-form-field
                             appearance="outline"
                             name="linkLattes"
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="datepickers-group">
-                    @if (perfil !== "ccp") {
+                    @if (perfil !== "CCP") {
                         <mat-form-field>
                             <mat-label>Data de atualização do Lattes</mat-label>
                             <input
@@ -45,7 +45,7 @@
                         </mat-form-field>
                     }
 
-                    @if (perfil === "aluno") {
+                    @if (perfil === "Aluno") {
                         <mat-form-field
                             appearance="outline"
                             name="anoIngresso"
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            @if (perfil === "aluno") {
+            @if (perfil === "Aluno") {
                 <div class="form-linha-2">
                     <div class="radio-button-group">
                         <mat-label>Curso</mat-label>

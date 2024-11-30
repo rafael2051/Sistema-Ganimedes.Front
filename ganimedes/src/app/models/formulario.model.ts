@@ -1,7 +1,9 @@
 export class Formulario {
   constructor(
     public id_formulario: string,
+    public referencia: string,
     public nusp_aluno: string,
+    public nome_aluno: string,
     public orientador: string,
     public artigosEscrita: number,
     public artigosSubmetidos: number,

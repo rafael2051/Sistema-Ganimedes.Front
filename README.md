@@ -1,28 +1,26 @@
 # Sistema Ganimedes
 
-# ATENÇÃO: O projeto do frontend foi alterado por um motivo técnico. Faça alterações a partir do projeto da branch master
+O Ganimedes é o sistema feito para o controle dos formulários semestrais obrigatórios para os alunos, os orientadores e as comissões coordenadoras (CCP) dos programas de pós-graduação da EACH USP. Nesta primeira implementação, o foco é atender os alunos, os docentes e a CCP do Programa de Pós-graduação em Sistemas de Informação (PPGSI).
 
-- Para alterar os formulários liberados, altere o valor da variável perfil no FormularioComponent. A variável assume três possíveis valores: `aluno`, `docente` ou `ccp`. A ideia é que essa variável seja atribuída após o login ser realizado e o dado venha do backend.
+## Pré-requisito
 
-- Na navbar, o segundo link pode ter dois textos: `Formulário` ou `Formulários alunos`. O texto varia de acordo com o perfil e segue a mesma lógica do primeiro item. A variável que controla esse valor está no AppComponent.
+- [NodeJS versão 18.19.1 ou superior](https://nodejs.org/pt/download/package-manager)
 
-- AuthGuard é o código que nos permitirá bloquear o acesso de um usuário não autorizado.
+\*\*Obs.: recomendamos a instalação da última versão
 
-### campos para edição do perfil:
-- email
-- link lattes
-- data de atualização do lattes
-- curso
-- ano ingresso
-- exame de proficiência
-- exame de qualificação
-- prazo máximo de qualificação
-- prazo máximo de depósito de tese
-- orientador
+## Como executar
 
-#### campos não editaveis no perfil e que serão preenchidos no cadastro:
-- nusp
-- nome
-- rg
-- data de nascimento
-- nacionalidade
+1. Após clonar o projeto, rode os seguintes comandos:
+
+```
+cd Sistema-Ganimedes.Front/ganimedes
+npm i
+```
+
+2. Após a instalação das dependências terminar, execute o projeto com:
+
+```
+npm start
+```
+
+3. O projeto estará em execução no endereço [http://localhost:4200](http://localhost:4200)

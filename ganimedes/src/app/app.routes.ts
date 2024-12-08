@@ -1,38 +1,43 @@
-import { Routes } from "@angular/router";
-import { LoginComponent } from "./components/login/login.component";
-import { FormularioComponent } from "./components/formulario/formulario.component";
-import { PerfilComponent } from "./components/perfil/perfil.component";
-import { authGuard, authGuardListaFormularios } from "./utils/auth.guard";
-import { ListaFormulariosComponent } from "./components/lista-formularios/lista-formularios.component";
-import { CadastroComponent } from "./components/cadastro/cadastro.component";
+import { Routes } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { FormularioComponent } from './components/formulario/formulario.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import {
+  authGuard,
+  authGuardListaFormularios,
+  authGuardLogin,
+} from './utils/auth.guard';
+import { ListaFormulariosComponent } from './components/lista-formularios/lista-formularios.component';
+import { CadastroComponent } from './components/cadastro/cadastro.component';
 
 export const routes: Routes = [
   {
-    path: "login",
+    path: 'login',
     component: LoginComponent,
+    canActivate: [authGuardLogin],
   },
   {
-    path: "cadastro",
+    path: 'cadastro',
     component: CadastroComponent,
   },
   {
-    path: "formulario/:nusp",
+    path: 'formulario/:nusp',
     component: FormularioComponent,
     canActivate: [authGuard],
   },
   {
-    path: "lista",
+    path: 'lista',
     component: ListaFormulariosComponent,
     canActivate: [authGuard, authGuardListaFormularios],
   },
   {
-    path: "perfil",
+    path: 'perfil',
     component: PerfilComponent,
     canActivate: [authGuard],
   },
   {
-    path: "",
-    redirectTo: "perfil",
-    pathMatch: "full",
+    path: '',
+    redirectTo: 'perfil',
+    pathMatch: 'full',
   },
 ];

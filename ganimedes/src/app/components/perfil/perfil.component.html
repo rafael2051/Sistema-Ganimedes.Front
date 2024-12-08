@@ -3,20 +3,18 @@
         <form [formGroup]="formPerfil">
             <div class="form-linha-1">
                 <div class="text-fields-group">
-                    @if (perfil !== "CCP") {
-                        <mat-form-field
-                            appearance="outline"
-                            name="linkLattes"
-                            ngDefaultControl
-                        >
-                            <mat-label>Link Lattes</mat-label>
-                            <input
-                                matInput
-                                type="url"
-                                formControlName="linkLattes"
-                            />
-                        </mat-form-field>
-                    }
+                    <mat-form-field
+                        appearance="outline"
+                        name="linkLattes"
+                        ngDefaultControl
+                    >
+                        <mat-label>Link Lattes</mat-label>
+                        <input
+                            matInput
+                            type="url"
+                            formControlName="linkLattes"
+                        />
+                    </mat-form-field>
 
                     <mat-form-field
                         appearance="outline"
@@ -29,23 +27,21 @@
                 </div>
 
                 <div class="datepickers-group">
-                    @if (perfil !== "CCP") {
-                        <mat-form-field>
-                            <mat-label>Data de atualização do Lattes</mat-label>
-                            <input
-                                matInput
-                                formControlName="dtLattes"
-                                [matDatepicker]="dtLattesPicker"
-                            />
-                            <mat-datepicker-toggle
-                                matIconSuffix
-                                [for]="dtLattesPicker"
-                            ></mat-datepicker-toggle>
-                            <mat-datepicker #dtLattesPicker></mat-datepicker>
-                        </mat-form-field>
-                    }
+                    <mat-form-field>
+                        <mat-label>Data de atualização do Lattes</mat-label>
+                        <input
+                            matInput
+                            formControlName="dtLattes"
+                            [matDatepicker]="dtLattesPicker"
+                        />
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="dtLattesPicker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #dtLattesPicker></mat-datepicker>
+                    </mat-form-field>
 
-                    @if (perfil === "Aluno") {
+                    @if (!desabilitaSeNaoAluno()) {
                         <mat-form-field
                             appearance="outline"
                             name="anoIngresso"
@@ -67,7 +63,7 @@
                 </div>
             </div>
 
-            @if (perfil === "Aluno") {
+            @if (!desabilitaSeNaoAluno()) {
                 <div class="form-linha-2">
                     <div class="radio-button-group">
                         <mat-label>Curso</mat-label>

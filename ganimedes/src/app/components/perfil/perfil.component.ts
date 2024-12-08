@@ -109,14 +109,8 @@ export class PerfilComponent {
         { value: "", disabled: false },
         [Validators.required, Validators.email],
       ],
-      linkLattes: [
-        { value: "", disabled: this.desabilitaSeCCP() },
-        Validators.required,
-      ],
-      dtLattes: [
-        { value: "", disabled: this.desabilitaSeCCP() },
-        Validators.required,
-      ],
+      linkLattes: [{ value: "", disabled: false }, Validators.required],
+      dtLattes: [{ value: "", disabled: false }, Validators.required],
       curso: [
         { value: "", disabled: this.desabilitaSeNaoAluno() },
         Validators.required,
@@ -185,11 +179,7 @@ export class PerfilComponent {
   }
 
   desabilitaSeNaoAluno(): boolean {
-    return this.perfil !== "aluno";
-  }
-
-  desabilitaSeCCP(): boolean {
-    return this.perfil === "ccp";
+    return this.perfil !== "Aluno";
   }
 
   // TODO: modficar para redirecionar para o formulário correto, de acordo com o nusp

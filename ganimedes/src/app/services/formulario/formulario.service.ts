@@ -12,13 +12,13 @@ export class FormularioService {
 
   buscarDadosFormulario(nusp: string) {
     console.log('nusp para a busca dos dados do formulario semestral', nusp);
-    return this.http.get<Aluno>(`${this._urlApi}/formulario/${nusp}`, {
+    return this.http.get<Aluno>(`${this._urlApi}/getForm/${nusp}`, {
       headers: { Authorization: `Bearer ${this._token}` },
     });
   }
 
   listarFormularios(nusp_docente: string) {
-    return this.http.post(`${this._urlApi}/listaFormularios`, nusp_docente, {
+    return this.http.post(`${this._urlApi}/getFormsMetadata`, nusp_docente, {
       headers: { Authorization: `Bearer ${this._token}` },
     });
   }

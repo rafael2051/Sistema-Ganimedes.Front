@@ -120,6 +120,14 @@ export class CadastroComponent {
       perfil: ['', Validators.required], //Todos
       nome: ['', Validators.required], //Todos
       nusp: ['', Validators.required], //Todos
+      senha: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(256),
+          Validators.minLength(6),
+        ],
+      ], //Todos
       rg: '', //Aluno
       dtNascimento: '', //Aluno
       nacionalidade: '', //Aluno
@@ -249,16 +257,66 @@ export class CadastroComponent {
     console.log('form valido', this.form.valid);
 
     this.imprimirEstadoDeCadaFormControl();
-    this.service.signUp(this.form.value).subscribe({
-      next: (response) => {
-        console.log('res cadastro', response);
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        console.log('error', error);
-        this.router.navigate(['/login']);
-      },
-    });
+
+    const formUser = {
+      nusp: this.form.controls['nusp'].value,
+      nome: this.form.controls['nome'].value,
+      email: this.form.controls['email'].value,
+      senha: this.form.controls['senha'].value,
+      link_lattes: this.form.controls['linkLattes'].value,
+      dt_atualizacao_lattes: this.form.controls['dtLattes'].value,
+      perfil: this.form.controls['perfil'].value,
+    };
+
+    if (this.form.controls['perfil'].value === 'Aluno') {
+      const formStudent = {
+        nusp: this.form.controls['nusp'].value,
+        curso: this.form.controls['curso'].value,
+        ano_ingresso: this.form.controls['anoIngresso'].value,
+        exame_proficiencia: this.form.controls['exameProficiencia'].value,
+        exame_qualificacao: this.form.controls['exameQualificacao'].value,
+        prazo_maximo_qualificacao:
+          this.form.controls['prazoQualificacao'].value,
+        prazo_maximo_deposito_tese: this.form.controls['prazoTese'].value,
+        orientador: this.form.controls['orientador'].value,
+        rg: this.form.controls['rg'].value,
+        dt_nascimento: this.form.controls['dtNascimento'].value,
+        nacionalidade: this.form.controls['nacionalidade'].value,
+      };
+
+      this.service.signUpUser(formUser).subscribe({
+        next: (response) => {
+          this.service.signUpStudent(formStudent).subscribe({
+            next: (response) => {
+              console.log('response', response);
+              this.router.navigate(['/login']);
+            },
+            error: (error) => {
+              console.log('error', error);
+              alert('Erro ao cadastrar o Aluno');
+              this.router.navigate(['/login']);
+            },
+          });
+        },
+        error: (error) => {
+          console.log('error', error);
+          alert('Erro ao cadastrar usuário');
+          this.router.navigate(['/login']);
+        },
+      });
+    } else {
+      this.service.signUpUser(formUser).subscribe({
+        next: (response) => {
+          console.log('response', response);
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.log('error', error);
+          alert('Erro ao cadastrar usuário');
+          this.router.navigate(['/login']);
+        },
+      });
+    }
   }
 
   blockNonNumberInput(event: any) {

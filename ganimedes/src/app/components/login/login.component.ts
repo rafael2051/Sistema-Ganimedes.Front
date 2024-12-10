@@ -99,10 +99,6 @@ export class LoginComponent {
       error: (error) => {
         console.log('erro login - resposta', error);
         alert('Usuário ou senha inválidos');
-
-        //TODO: Remover quanto a API estiver pronta
-        this.salvarTokenSimbolico();
-        this.router.navigate(['/']);
       },
     });
   }

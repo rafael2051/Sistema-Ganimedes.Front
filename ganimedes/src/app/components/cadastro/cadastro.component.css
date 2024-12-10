@@ -1,102 +1,107 @@
 section {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .linha-um {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .linha-um mat-form-field[primeiro] {
-    width: 15%;
+  width: 15%;
 }
 
 .linha-um mat-form-field[segundo] {
-    width: 20%;
+  width: 20%;
 }
 
 .linha-um mat-form-field[terceiro] {
-    width: 30%;
+  width: 30%;
 }
 
 .linha-um mat-form-field[quarto] {
-    width: 10%;
+  width: 10%;
 }
 
 .linha-dois {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
 }
 
 .linha-dois mat-form-field[primeiro] {
-    width: 40%;
-    margin-right: 4rem;
+  width: 40%;
+  margin-right: 4rem;
 }
 
 .linha-dois mat-form-field[segundo] {
-    width: 20%;
+  width: 20%;
+  margin-right: 4rem;
+}
+
+.linha-dois mat-form-field[terceiro] {
+  width: 20%;
 }
 
 .linha-tres {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .linha-tres mat-form-field {
-    width: 15%;
+  width: 15%;
 }
 
 .radio-buttons-group {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .linha-quatro {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .linha-quatro mat-form-field[primeiro] {
-    width: 25%;
+  width: 25%;
 }
 
 .linha-quatro mat-form-field[segundo] {
-    width: 20%;
+  width: 20%;
 }
 
 .linha-quatro mat-form-field[terceiro] {
-    width: 20%;
+  width: 20%;
 }
 
 .linha-cinco {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .linha-cinco mat-form-field[primeiro] {
-    width: 15%;
+  width: 15%;
 }
 
 .linha-cinco mat-form-field[segundo] {
-    width: 20%;
+  width: 20%;
 }
 
 .linha-cinco mat-form-field[terceiro] {
-    width: 20%;
+  width: 20%;
 }
 
 .linha-seis {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }

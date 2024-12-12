@@ -6,13 +6,13 @@ import { Injectable } from '@angular/core';
 })
 export class PerfilService {
   private _url = 'http://localhost:5000/perfil';
-  private _token = sessionStorage.getItem('token');
 
   constructor(private http: HttpClient) {}
 
   public salvarPerfil(perfil: any) {
-    this.http.post(`${this._url}/atualizarPerfil`, perfil, {
-      headers: { Authorization: `Bearer ${this._token}` },
+    const token = sessionStorage.getItem('token');
+    return this.http.post(`${this._url}/atualizarPerfil`, perfil, {
+      headers: { Authorization: `Bearer ${token}` },
     });
   }
 }

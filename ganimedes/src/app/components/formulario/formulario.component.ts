@@ -101,7 +101,7 @@ export class FormularioComponent implements OnInit {
     console.log('O perfil deste usuário é', this.perfil);
   }
 
-  private controleFormularios() {
+  public controleFormularios() {
     if (this.perfil === 'Aluno') {
       //TODO: implementar o controle que verifica se o formulário do aluno deve estar habilitado ou não.
       // O formulário deve estar habilitado apenas se a data de vencimento for maior que a data atual.
@@ -118,7 +118,7 @@ export class FormularioComponent implements OnInit {
     }
   }
 
-  private buscarDadosFormulario(nusp: any): void {
+  public buscarDadosFormulario(nusp: any): void {
     this.servico.buscarDadosFormulario(nusp).subscribe((data) => {
       // TODO: atribuir dados retornados no formulário
       // this.formAluno = data;

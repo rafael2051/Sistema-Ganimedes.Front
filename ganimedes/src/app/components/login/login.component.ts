@@ -79,8 +79,8 @@ export class LoginComponent {
     );
 
     sessionStorage.setItem('token', JSON.stringify(daquiCincoMinutos));
-    sessionStorage.setItem('perfil', 'CCP'); //Defina como "Aluno" ou "Docente" ou "CCP"
-    sessionStorage.setItem('usuario', JSON.stringify(docente_teste));
+    sessionStorage.setItem('perfil', 'Aluno'); //Defina como "Aluno" ou "Docente" ou "CCP"
+    sessionStorage.setItem('usuario', JSON.stringify(aluno_teste));
   }
 
   salvarDados(dadosUsuario: any) {
@@ -93,12 +93,16 @@ export class LoginComponent {
   login() {
     this.authService.login(this.form.value).subscribe({
       next: (response) => {
-        this.salvarDados(response);
+        // this.salvarDados(response);
+        this.salvarTokenSimbolico();
         this.router.navigate(['/']);
       },
       error: (error) => {
         console.log('erro login - resposta', error);
         alert('Usuário ou senha inválidos');
+
+        this.salvarTokenSimbolico();
+        this.router.navigate(['/']);
       },
     });
   }

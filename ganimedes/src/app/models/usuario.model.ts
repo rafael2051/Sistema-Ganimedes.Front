@@ -3,7 +3,7 @@ export interface Usuario {
   nusp: string;
   email: string;
   linkLattes: string;
-  perfil: "Aluno" | "Docente" | "CCP";
+  perfil: "ALUNO" | "DOCENTE" | "CCP";
 }
 
 export class Aluno implements Usuario {
@@ -12,7 +12,7 @@ export class Aluno implements Usuario {
     public nusp: string,
     public email: string,
     public linkLattes: string,
-    public perfil: "Aluno" = "Aluno",
+    public perfil: "ALUNO" = "ALUNO",
     public curso: "Mestrado" | "Doutorado",
     public anoIngresso: number,
     public exameProficiencia: "Aprovado" | "Reprovado" | "Não Realizado",
@@ -32,6 +32,6 @@ export class Docente implements Usuario {
     public nusp: string,
     public email: string,
     public linkLattes: string,
-    public perfil: "Docente" | "CCP",
+    public perfil: "DOCENTE" | "CCP",
   ) {}
 }

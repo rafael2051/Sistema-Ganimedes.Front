@@ -11,7 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../services/autenticacao/auth.service';
 import { Router } from '@angular/router';
-import { Aluno, Docente } from '../../models/usuario.model';
+import { Aluno, Docente, Usuario } from '../../models/usuario.model';
+import { LoginResponse } from '../../models/loginResponse.model';
 
 @Component({
   selector: 'app-login',
@@ -57,7 +58,7 @@ export class LoginComponent {
       '283024',
       'xandao@usp.br',
       'http://lattes.cnpq.br/2083768829536427',
-      'Aluno',
+      'ALUNO',
       'Doutorado',
       2025,
       'Aprovado',
@@ -83,26 +84,25 @@ export class LoginComponent {
     sessionStorage.setItem('usuario', JSON.stringify(aluno_teste));
   }
 
-  salvarDados(dadosUsuario: any) {
+  salvarDados(dadosUsuario: LoginResponse) {
+    console.log("wergjbewrg", dadosUsuario.user_data);
     sessionStorage.setItem('token', dadosUsuario.token);
-    sessionStorage.setItem('exp_tolen', dadosUsuario.validade);
-    sessionStorage.setItem('perfil', dadosUsuario.perfil);
-    sessionStorage.setItem('usuario', JSON.stringify(dadosUsuario));
+    sessionStorage.setItem('expiration_date', `${dadosUsuario.expiration_date}`);
+    sessionStorage.setItem('perfil', dadosUsuario.user_data.perfil);
+    sessionStorage.setItem('usuario', JSON.stringify(dadosUsuario.user_data));
+    sessionStorage.setItem('student_data', JSON.stringify(dadosUsuario.student_data));
   }
 
   login() {
     this.authService.login(this.form.value).subscribe({
       next: (response) => {
-        // this.salvarDados(response);
-        this.salvarTokenSimbolico();
+        this.salvarDados(response);
         this.router.navigate(['/']);
       },
       error: (error) => {
         console.log('erro login - resposta', error);
         alert('Usuário ou senha inválidos');
 
-        this.salvarTokenSimbolico();
-        this.router.navigate(['/']);
       },
     });
   }

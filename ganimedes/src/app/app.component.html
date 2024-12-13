@@ -4,9 +4,9 @@
             <a routerLink="perfil" class="no-decoration-title">
                 <h1>Ganimedes</h1>
             </a>
-            @if (perfil === "Aluno") {
+            @if (perfil === "ALUNO") {
                 <a (click)="redirecionaAluno()">Formulário</a>
-            } @else if (perfil !== "Aluno") {
+            } @else if (perfil !== "ALUNO") {
                 <a routerLink="lista">Formulários dos alunos</a>
             }
             <!-- Provavelmente não terá histórico -->

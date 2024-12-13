@@ -43,6 +43,9 @@ export class FormularioComponent implements OnInit {
 
   perfil = sessionStorage.getItem('perfil');
   usuario: Usuario;
+  nusp_aluno: string | null;
+  nusp_orientador: string | null;
+  id_formulario: number | null = null;
 
   //Controle Formulários
   //Aluno
@@ -83,17 +86,22 @@ export class FormularioComponent implements OnInit {
     const temp = sessionStorage.getItem('usuario');
     if (temp) {
       const temp_parsed = JSON.parse(temp);
-      if (temp_parsed.perfil === 'Aluno') this.usuario = temp_parsed as Aluno;
+      if (temp_parsed.perfil === 'ALUNO') this.usuario = temp_parsed as Aluno;
       else this.usuario = temp_parsed as Docente;
 
       console.log('Usuário logado:', this.usuario);
     }
 
-    let nusp: any;
     this.route.paramMap.subscribe((params) => {
-      nusp = params.get('nusp');
-      this.buscarDadosFormulario(nusp);
+      this.nusp_aluno = params.get('nusp');
+      this.buscarDadosFormulario(this.nusp_aluno);
     });
+
+    const student_data = sessionStorage.getItem('student_data');
+    if(student_data) {
+      const student_data_parsed = JSON.parse(student_data);
+      this.nusp_orientador = student_data_parsed.orientador
+    }
   }
 
   ngOnInit() {
@@ -102,13 +110,13 @@ export class FormularioComponent implements OnInit {
   }
 
   public controleFormularios() {
-    if (this.perfil === 'Aluno') {
+    if (this.perfil === 'ALUNO') {
       //TODO: implementar o controle que verifica se o formulário do aluno deve estar habilitado ou não.
       // O formulário deve estar habilitado apenas se a data de vencimento for maior que a data atual.
       // A data de vencimento deve ser fornecida pelo backend
 
       this.formAlunoDesabilitado = false;
-    } else if (this.perfil === 'Docente') {
+    } else if (this.perfil === 'DOCENTE') {
       this.parecerDocenteDesabilitado = false;
       this.exibeParecerDocente = true;
     } else {
@@ -121,22 +129,45 @@ export class FormularioComponent implements OnInit {
   public buscarDadosFormulario(nusp: any): void {
     this.servico.buscarDadosFormulario(nusp).subscribe((data) => {
       // TODO: atribuir dados retornados no formulário
-      // this.formAluno = data;
+      console.log('Dados retornados:', data);
+
+      this.formAluno.controls['artigosEscrita'].setValue(data.artigos_em_escrita);
+      this.formAluno.controls['artigosSubmetidos'].setValue(data.artigos_em_avaliacao);
+      this.formAluno.controls['artigosAceitos'].setValue(data.artigos_aceitos);
+      this.formAluno.controls['atividadesAcademicas'].setValue(data.atividades_academicas);
+      this.formAluno.controls['atividadesPesquisa'].setValue(data.atividades_pesquisa);
+      this.formAluno.controls['declaracaoCCP'].setValue(data.declaracao_adicional_comissao);
+      if(data.dificuldade_apoio_coordenacao){
+        this.formAluno.controls['dificuldades'].setValue("1");
+      }else{
+        this.formAluno.controls['dificuldades'].setValue("2");
+      }
+
+      this.formAluno.controls['artigosEscrita'].updateValueAndValidity();
+      this.formAluno.controls['artigosSubmetidos'].updateValueAndValidity();
+      this.formAluno.controls['artigosAceitos'].updateValueAndValidity();
+      this.formAluno.controls['atividadesAcademicas'].updateValueAndValidity();
+      this.formAluno.controls['atividadesPesquisa'].updateValueAndValidity();
+      this.formAluno.controls['declaracaoCCP'].updateValueAndValidity();
+      this.formAluno.controls['dificuldades'].updateValueAndValidity();
+
+      // this.formAluno.controls['conceitosDivulgados'].setValue(data.);
+
       this.dadosCarregados = true;
     });
   }
 
   public sendForm(): void {
-    if (this.perfil === 'Aluno')
-      this.servico.salvarFormulario(this.formAluno.value).subscribe((res) => {
+    if (this.perfil === 'ALUNO')
+      this.servico.salvarFormulario("ALUNO", this.formAluno.value, this.nusp_aluno, this.nusp_orientador).subscribe((res) => {
         console.log('resposta salvamento form aluno', res);
       });
-    else if (this.perfil === 'Docente')
-      this.servico.salvarFormulario(this.formDocente.value).subscribe((res) => {
+    else if (this.perfil === 'DOCENTE')
+      this.servico.salvarFormulario("DOCENTE", this.formDocente.value, this.nusp_aluno, this.nusp_orientador).subscribe((res) => {
         console.log('resposta salvamento form docente', res);
       });
     else
-      this.servico.salvarFormulario(this.formCCP.value).subscribe((res) => {
+      this.servico.salvarFormulario("CCP", this.formCCP.value, this.nusp_aluno, this.nusp_orientador).subscribe((res) => {
         console.log('resposta salvamento form ccp', res);
       });
   }

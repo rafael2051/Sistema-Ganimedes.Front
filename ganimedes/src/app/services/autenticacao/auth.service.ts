@@ -7,23 +7,23 @@ import { LoginResponse } from '../../models/loginResponse.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000';
+  private apiUrl = 'https://localhost:7260';
 
   constructor(private http: HttpClient) {}
 
-  login(form: any): Observable<LoginResponse> {
+  login(form: any): Observable<any> {
     const formSent = {
       username: form.email,
       password: form.senha,
     };
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, formSent);
+    return this.http.post<any>(`${this.apiUrl}/login`, formSent);
   }
 
-  signUpUser(form: any): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiUrl}/registerUser`, form);
+  signUpUser(form: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/registerUser`, form);
   }
 
-  signUpStudent(form: any): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiUrl}/registerStudent`, form);
+  signUpStudent(form: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/registerStudent`, form);
   }
 }

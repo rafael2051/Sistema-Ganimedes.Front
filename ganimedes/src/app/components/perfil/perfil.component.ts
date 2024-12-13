@@ -179,7 +179,7 @@ export class PerfilComponent {
   }
 
   desabilitaSeNaoAluno(): boolean {
-    return this.perfil !== "Aluno";
+    return this.perfil !== "ALUNO";
   }
 
   // TODO: modficar para redirecionar para o formulário correto, de acordo com o nusp

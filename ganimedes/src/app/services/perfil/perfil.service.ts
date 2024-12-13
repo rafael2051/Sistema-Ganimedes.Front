@@ -12,7 +12,7 @@ export class PerfilService {
   public salvarPerfil(perfil: any) {
     const token = sessionStorage.getItem('token');
     return this.http.post(`${this._url}/atualizarPerfil`, perfil, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `${token}` },
     });
   }
 }

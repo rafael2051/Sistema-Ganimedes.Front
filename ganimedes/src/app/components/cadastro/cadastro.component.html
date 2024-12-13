@@ -94,7 +94,7 @@
         </mat-form-field>
       </div>
 
-      @if (form.controls["perfil"].value === "Aluno") {
+      @if (form.controls["perfil"].value === "ALUNO") {
       <div class="linha-tres">
         <mat-form-field
           appearance="outline"
@@ -158,8 +158,8 @@
           <mat-label>Orientador</mat-label>
           <mat-select formControlName="orientador">
             @for ( orientador of orientadores; track orientador ) {
-            <mat-option [value]="orientador">
-              {{ orientador }}
+            <mat-option [value]="orientador.nusp">
+              {{ orientador.nome }}
             </mat-option>
             }
           </mat-select>

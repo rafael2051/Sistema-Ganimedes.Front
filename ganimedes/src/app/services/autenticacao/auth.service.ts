@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginResponse } from '../../models/loginResponse.model';
 
 @Injectable({
@@ -8,8 +8,24 @@ import { LoginResponse } from '../../models/loginResponse.model';
 })
 export class AuthService {
   private apiUrl = 'https://localhost:7260';
+  private authStatus = new BehaviorSubject<boolean>(this.hasToken());
 
+  authStatus$ = this.authStatus.asObservable();
   constructor(private http: HttpClient) {}
+
+  private hasToken(): boolean {
+    return !!sessionStorage.getItem('token');
+  }
+
+  setToken(token: string) {
+    sessionStorage.setItem('token', token);
+    this.authStatus.next(true);
+  }
+
+  removeToken() {
+    sessionStorage.removeItem('token');
+    this.authStatus.next(false);
+  }
 
   login(form: any): Observable<any> {
     const formSent = {

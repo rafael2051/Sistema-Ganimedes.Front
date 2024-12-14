@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -18,7 +18,18 @@ export class AppComponent {
   perfil = sessionStorage.getItem('perfil');
   usuario = sessionStorage.getItem('usuario');
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
+    this.authService.authStatus$.subscribe((status) => {
+      this.token = sessionStorage.getItem('token');
+      this.perfil = sessionStorage.getItem('perfil');
+      this.usuario = sessionStorage.getItem('usuario');
+      this.changeDetectorRef.detectChanges();
+    });
+  }
 
   redirecionaAluno() {
     const usuario = sessionStorage.getItem('usuario');
@@ -31,9 +42,11 @@ export class AppComponent {
   }
 
   deslogarUsuario() {
-    sessionStorage.removeItem('token');
+    this.authService.removeToken();
     sessionStorage.removeItem('perfil');
     sessionStorage.removeItem('usuario');
-    this.router.navigate(['login']);
+    this.router.navigate(['login']).then(() => {
+      this.changeDetectorRef.detectChanges();
+    });
   }
 }

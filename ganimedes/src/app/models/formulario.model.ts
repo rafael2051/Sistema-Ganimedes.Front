@@ -1,27 +1,22 @@
 export class Formulario {
-  constructor(
-    public id_formulario: string,
-    public referencia: string,
-    public nusp_aluno: string,
-    public nome_aluno: string,
-    public orientador: string,
-    public artigosEscrita: number,
-    public artigosSubmetidos: number,
-    public artigosAceitos: number,
-    public atividadesAcademicas: string,
-    public atividadesPesquisa: string,
-    public declaracaoCCP: string,
-    public dificuldades: string,
-    public conceitosDivulgados: string,
-    public aprovadoDocente?:
-      | "Aprovado"
-      | "Aprovado com ressalvas"
-      | "Insatisfatório",
-    public aprovadoCCP?:
-      | "Aprovado"
-      | "Aprovado com ressalvas"
-      | "Insatisfatório",
-    public parecerDocente?: string,
-    public parecerCCP?: string,
-  ) {}
+  idFormulario?: number;
+  aluno: string; //nusp do aluno
+  nomeAluno: string;
+  orientador: string; //nusp do orientador
+  artigosEmEscrita: number;
+  artigosEmAvaliacao: number;
+  artigosAceitos: number;
+  atividadesAcademicas: string;
+  atividadesPesquisa: string;
+  declaracaoAdicionalComissao: string;
+  dificuldadeApoioCoordenacao: boolean;
+  dataPreenchimento: Date;
+  conceitosDivulgados?: string;
+}
+
+export class FormMetaData {
+  idFormulario: number;
+  nUspAluno: string;
+  nomeAluno: string;
+  parecerDado: boolean;
 }

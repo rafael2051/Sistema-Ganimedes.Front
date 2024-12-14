@@ -4,11 +4,12 @@
       <a routerLink="perfil" class="no-decoration-title">
         <h1>Ganimedes</h1>
       </a>
-      @if (token && perfil === "ALUNO") {
+      @if (token) { @if(perfil == "ALUNO") {
       <a (click)="redirecionaAluno()">Formulário</a>
-      } @else if (token && perfil !== "ALUNO") {
+      } @else if (perfil == "DOCENTE" || perfil == "CCP"){
       <a routerLink="lista">Formulários dos alunos</a>
-      }
+
+      } }
       <!-- Provavelmente não terá histórico -->
       <!-- <a routerLink="historico">Histórico</a> -->
     </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -33,8 +33,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private changeDetectorRef: ChangeDetectorRef
+    private router: Router
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -43,17 +42,6 @@ export class LoginComponent {
   }
 
   salvarTokenSimbolico() {
-    const dataAtual = new Date();
-    const daquiCincoMinutos = new Date(
-      dataAtual.getFullYear(),
-      dataAtual.getMonth(),
-      dataAtual.getDate(),
-      dataAtual.getHours(),
-      dataAtual.getMinutes() + 5,
-      dataAtual.getSeconds()
-    );
-    console.log('tempo em 5 minutos', daquiCincoMinutos);
-
     const aluno_teste = new Aluno(
       'Alexandre de Moraes (xandão)',
       '283024',
@@ -80,12 +68,12 @@ export class LoginComponent {
       'CCP'
     );
 
+    this.authService.setToken('token_simbolico');
     sessionStorage.setItem(
       'expiration_date',
-      JSON.stringify(daquiCincoMinutos)
+      '2024-12-15T01:29:24.4417538-03:00'
     );
-    this.authService.setToken('ksdalksjdlajsdlasdlakj19283');
-    sessionStorage.setItem('perfil', 'Aluno'); //Defina como "Aluno" ou "Docente" ou "CCP"
+    sessionStorage.setItem('perfil', 'ALUNO'); //Defina como "ALUNO" ou "DOCENTE" ou "CCP"
     sessionStorage.setItem('usuario', JSON.stringify(aluno_teste));
   }
 
@@ -111,7 +99,7 @@ export class LoginComponent {
       },
       error: (error) => {
         console.log('erro login - resposta', error);
-        // alert('Usuário ou senha inválidos');
+        alert('Usuário ou senha inválidos');
 
         this.salvarTokenSimbolico();
         this.router.navigate(['/']);

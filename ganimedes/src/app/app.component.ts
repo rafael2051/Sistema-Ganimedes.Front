@@ -14,20 +14,15 @@ import { AuthService } from './services/autenticacao/auth.service';
 })
 export class AppComponent {
   title = 'ganimedes';
-  token = sessionStorage.getItem('token');
-  perfil = sessionStorage.getItem('perfil');
-  usuario = sessionStorage.getItem('usuario');
+  token: string | null = null;
+  perfil: string | null = null;
+  usuario: string | null = null;
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
+  constructor(private router: Router, private authService: AuthService) {
     this.authService.authStatus$.subscribe((status) => {
       this.token = sessionStorage.getItem('token');
       this.perfil = sessionStorage.getItem('perfil');
       this.usuario = sessionStorage.getItem('usuario');
-      this.changeDetectorRef.detectChanges();
     });
   }
 
@@ -43,10 +38,10 @@ export class AppComponent {
 
   deslogarUsuario() {
     this.authService.removeToken();
+    sessionStorage.removeItem('expiration_date');
     sessionStorage.removeItem('perfil');
     sessionStorage.removeItem('usuario');
-    this.router.navigate(['login']).then(() => {
-      this.changeDetectorRef.detectChanges();
-    });
+    sessionStorage.removeItem('student_data');
+    this.router.navigate(['login']);
   }
 }

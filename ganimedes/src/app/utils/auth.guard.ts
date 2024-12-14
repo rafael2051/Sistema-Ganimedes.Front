@@ -11,6 +11,9 @@ export const authGuard: CanActivateFn = (route, state) => {
     const now = new Date();
     const exp = new Date(exp_date);
 
+    console.log(token, exp_date, now, exp);
+    console.log(exp >= now);
+
     if (exp < now) router.navigate(['login']);
     return exp >= now;
   }

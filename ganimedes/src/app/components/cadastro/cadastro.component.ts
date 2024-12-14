@@ -265,7 +265,7 @@ export class CadastroComponent {
       email: this.form.controls['email'].value,
       password: this.form.controls['senha'].value,
       linkLattes: this.form.controls['linkLattes'].value,
-      dt_atualizacao_lattes: this.form.controls['dtLattes'].value,
+      dtAtualizacaoLattes: this.form.controls['dtLattes'].value,
       perfil: this.form.controls['perfil'].value,
     };
 

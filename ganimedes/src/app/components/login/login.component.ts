@@ -41,56 +41,19 @@ export class LoginComponent {
     });
   }
 
-  salvarTokenSimbolico() {
-    const dataAtual = new Date();
-    const daquiCincoMinutos = new Date(
-      dataAtual.getFullYear(),
-      dataAtual.getMonth(),
-      dataAtual.getDate(),
-      dataAtual.getHours(),
-      dataAtual.getMinutes() + 5,
-      dataAtual.getSeconds()
-    );
-    console.log('tempo em 5 minutos', daquiCincoMinutos);
-
-    const aluno_teste = new Aluno(
-      'Alexandre de Moraes (xandão)',
-      '283024',
-      'xandao@usp.br',
-      'http://lattes.cnpq.br/2083768829536427',
-      'ALUNO',
-      'Doutorado',
-      2025,
-      'Aprovado',
-      'Não Realizado',
-      new Date(2025, 11, 31),
-      new Date(2028, 11, 31),
-      'Alexandre Ferreira Ramos',
-      '112223334',
-      new Date(1968, 11, 13),
-      'Brasileiro'
-    );
-
-    const docente_teste = new Docente(
-      'Alexandre Ferreira Ramos (xandão)',
-      '3764294',
-      'alex.ramos@usp.br',
-      'http://lattes.cnpq.br/1216871665198656',
-      'CCP'
-    );
-
-    sessionStorage.setItem('token', JSON.stringify(daquiCincoMinutos));
-    sessionStorage.setItem('perfil', 'Aluno'); //Defina como "Aluno" ou "Docente" ou "CCP"
-    sessionStorage.setItem('usuario', JSON.stringify(aluno_teste));
-  }
-
   salvarDados(dadosUsuario: LoginResponse) {
-    console.log("wergjbewrg", dadosUsuario.user_data);
+    console.log('wergjbewrg', dadosUsuario.user_data);
     sessionStorage.setItem('token', dadosUsuario.token);
-    sessionStorage.setItem('expiration_date', `${dadosUsuario.expiration_date}`);
+    sessionStorage.setItem(
+      'expiration_date',
+      `${dadosUsuario.expiration_date}`
+    );
     sessionStorage.setItem('perfil', dadosUsuario.user_data.perfil);
     sessionStorage.setItem('usuario', JSON.stringify(dadosUsuario.user_data));
-    sessionStorage.setItem('student_data', JSON.stringify(dadosUsuario.student_data));
+    sessionStorage.setItem(
+      'student_data',
+      JSON.stringify(dadosUsuario.student_data)
+    );
   }
 
   login() {
@@ -102,7 +65,6 @@ export class LoginComponent {
       error: (error) => {
         console.log('erro login - resposta', error);
         alert('Usuário ou senha inválidos');
-
       },
     });
   }

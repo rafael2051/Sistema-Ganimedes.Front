@@ -21,14 +21,12 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   redirecionaAluno() {
-    //TODO: pegar o nusp que está no session storage
-
     const usuario = sessionStorage.getItem('usuario');
-    let nusp = "";
+    let nusp = '';
 
-    if(usuario) {
-      nusp = JSON.parse(usuario).nusp; 
-      this.router.navigate([`formulario/${nusp}`]); 
+    if (usuario) {
+      nusp = JSON.parse(usuario).nusp;
+      this.router.navigate([`formulario/${nusp}`]);
     }
   }
 

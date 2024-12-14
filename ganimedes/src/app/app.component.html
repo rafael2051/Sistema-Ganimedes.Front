@@ -1,25 +1,27 @@
 <header>
-    <nav class="navbar">
-        <div class="container-links">
-            <a routerLink="perfil" class="no-decoration-title">
-                <h1>Ganimedes</h1>
-            </a>
-            @if (perfil === "ALUNO") {
-                <a (click)="redirecionaAluno()">Formulário</a>
-            } @else if (perfil !== "ALUNO") {
-                <a routerLink="lista">Formulários dos alunos</a>
-            }
-            <!-- Provavelmente não terá histórico -->
-            <!-- <a routerLink="historico">Histórico</a> -->
-        </div>
-        <div class="container-perfil">
-            <div class="circulo-perfil">
-                <a routerLink="perfil">
-                    <mat-icon fontIcon="person" style="color: black"></mat-icon>
-                </a>
-            </div>
-            <mat-icon (click)="deslogarUsuario()" fontIcon="logout"></mat-icon>
-        </div>
-    </nav>
+  <nav class="navbar">
+    <div class="container-links">
+      <a routerLink="perfil" class="no-decoration-title">
+        <h1>Ganimedes</h1>
+      </a>
+      @if (token && perfil === "ALUNO") {
+      <a (click)="redirecionaAluno()">Formulário</a>
+      } @else if (token && perfil !== "ALUNO") {
+      <a routerLink="lista">Formulários dos alunos</a>
+      }
+      <!-- Provavelmente não terá histórico -->
+      <!-- <a routerLink="historico">Histórico</a> -->
+    </div>
+    <div class="container-perfil">
+      @if(token) {
+      <div class="circulo-perfil">
+        <a routerLink="perfil">
+          <mat-icon fontIcon="person" style="color: black"></mat-icon>
+        </a>
+      </div>
+      <mat-icon (click)="deslogarUsuario()" fontIcon="logout"></mat-icon>
+      }
+    </div>
+  </nav>
 </header>
 <router-outlet></router-outlet>

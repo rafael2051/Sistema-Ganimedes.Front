@@ -8,11 +8,8 @@ export const authGuard: CanActivateFn = (route, state) => {
   const exp_date = sessionStorage.getItem('expiration_date');
 
   if (token && exp_date) {
-    const obj = token;
     const now = new Date();
     const exp = new Date(exp_date);
-
-    console.log(`${token}, ${now}, ${exp}`)
 
     if (exp < now) router.navigate(['login']);
     return exp >= now;

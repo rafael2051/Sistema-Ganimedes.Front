@@ -40,7 +40,7 @@ export class FormularioComponent implements OnInit {
   formCCP: FormGroup;
 
   // TODO: mudar para false depois que o serviço estiver funcionando
-  public dadosCarregados: boolean = false;
+  public dadosCarregados: boolean = true;
 
   perfil = sessionStorage.getItem('perfil');
   usuario: Usuario;
@@ -167,71 +167,57 @@ export class FormularioComponent implements OnInit {
   atribuirDadosAoFormularioDeAluno(data: any) {
     // TODO: atribuir dados retornados no formulário
     console.log('Dados retornados:', data);
+    const data_simulated = {
+      id_formulario: 16,
+      aluno: '76767676',
+      orientador: '34567810',
+      nome_aluno: 'Joãozinho USP',
+      artigos_em_escrita: 2,
+      artigos_em_avaliacao: 1,
+      artigos_aceitos: 1,
+      aprovacoesTodoCurso: 10,
+      reprovacoesSemestreAtual: 1,
+      reprovacoesTodoCurso: 1,
+      atividades_academicas: 'Intercâmbio na Universidade de Roma na Itália.',
+      atividades_pesquisa:
+        'Estou desenvolvendo pesquisa em IA sobre comparação entre diferentes tipos de algoritmos de aprendizagem de máquina supervisonado e preciso apresentar os resultados de quais os mais eficientes até o final do curso.',
+      declaracao_adicional_comissao: 'Não;',
+      dificuldade_apoio_coordenacao: true,
+      data_preenchimento: '2024-12-14T00:00:00',
+    };
+    console.log('dados simulados', data_simulated);
 
-    if (!data) return;
+    if (!data_simulated) return;
 
-    this.formAluno.controls['artigosEscrita'].setValue(data.artigos_em_escrita);
-    this.formAluno.controls['artigosSubmetidos'].setValue(
-      data.artigos_em_avaliacao
-    );
-    this.formAluno.controls['artigosAceitos'].setValue(data.artigos_aceitos);
-    this.formAluno.controls['aprovacoesDesdeInicio'].setValue(
-      data.aprovacoesTodoCurso
-    );
-    this.formAluno.controls['reprovacoesSemestreAtual'].setValue(
-      data.reprovacoesSemestreAtual
-    );
-    this.formAluno.controls['reprovacoesDesdeInicio'].setValue(
-      data.reprovacoesTodoCurso
-    );
-    this.formAluno.controls['atividadesAcademicas'].setValue(
-      data.atividades_academicas
-    );
-    this.formAluno.controls['atividadesPesquisa'].setValue(
-      data.atividades_pesquisa
-    );
-    this.formAluno.controls['declaracaoCCP'].setValue(
-      data.declaracao_adicional_comissao
-    );
-    if (data.dificuldade_apoio_coordenacao) {
-      this.formAluno.controls['dificuldades'].setValue('1');
-    } else {
-      this.formAluno.controls['dificuldades'].setValue('2');
-    }
+    this.formAluno.patchValue({
+      artigosEscrita: data_simulated.artigos_em_escrita,
+      artigosSubmetidos: data_simulated.artigos_em_avaliacao,
+      artigosAceitos: data_simulated.artigos_aceitos,
+      aprovacoesDesdeInicio: data_simulated.aprovacoesTodoCurso,
+      reprovacoesSemestreAtual: data_simulated.reprovacoesSemestreAtual,
+      reprovacoesDesdeInicio: data_simulated.reprovacoesTodoCurso,
+      atividadesAcademicas: data_simulated.atividades_academicas,
+      atividadesPesquisa: data_simulated.atividades_pesquisa,
+      declaracaoCCP: data_simulated.declaracao_adicional_comissao,
+      dificuldades: data_simulated.dificuldade_apoio_coordenacao ? '1' : '2',
+      conceitosDivulgados: '1', //Mockado pois o bd não está salvando esse campo
+    });
 
-    this.formAluno.controls['artigosEscrita'].updateValueAndValidity();
-    this.formAluno.controls['artigosSubmetidos'].updateValueAndValidity();
-    this.formAluno.controls['artigosAceitos'].updateValueAndValidity();
-    this.formAluno.controls['aprovacoesDesdeInicio'].updateValueAndValidity();
-    this.formAluno.controls[
-      'reprovacoesSemestreAtual'
-    ].updateValueAndValidity();
-    this.formAluno.controls['reprovacoesDesdeInicio'].updateValueAndValidity();
-    this.formAluno.controls['atividadesAcademicas'].updateValueAndValidity();
-    this.formAluno.controls['atividadesPesquisa'].updateValueAndValidity();
-    this.formAluno.controls['declaracaoCCP'].updateValueAndValidity();
-    this.formAluno.controls['dificuldades'].updateValueAndValidity();
-
-    this.nome_aluno = data.nome_aluno;
-    this.id_formulario = data.id_formulario;
+    this.nome_aluno = data_simulated.nome_aluno;
+    this.id_formulario = data_simulated.id_formulario;
   }
 
   atribuirPareceresFormDocenteECCP(data: any, tipo: string) {
-    if (tipo === 'DOCENTE') {
-      this.formDocente.controls['parecerDocente'].setValue(
-        data.parecer_docente
-      );
-      this.formDocente.controls['conceito'].setValue(data.conceito);
-
-      this.formDocente.controls['parecerDocente'].updateValueAndValidity();
-      this.formDocente.controls['conceito'].updateValueAndValidity();
-    } else if (tipo === 'CCP') {
-      this.formCCP.controls['parecerCCP'].setValue(data.parecer_ccp);
-      this.formCCP.controls['conceito'].setValue(data.conceito);
-
-      this.formCCP.controls['parecerCCP'].updateValueAndValidity();
-      this.formCCP.controls['conceito'].updateValueAndValidity();
-    }
+    if (tipo === 'DOCENTE')
+      this.formDocente.patchValue({
+        parecer: data.parecer_docente,
+        conceito: data.conceito,
+      });
+    else if (tipo === 'CCP')
+      this.formCCP.patchValue({
+        parecerCCP: data.parecer_ccp,
+        conceito: data.conceito,
+      });
   }
 
   buscarDadosFormulario(nusp_aluno: any): void {
@@ -284,11 +270,15 @@ export class FormularioComponent implements OnInit {
                   console.log('Erro ao buscar os pareceres do formulário', err),
               });
         },
-        error: (err) =>
+        error: (err) => {
+          //TODO: retirar esta chamada
+          this.atribuirDadosAoFormularioDeAluno({});
+
           console.log(
             'Erro ao buscar dados preenchidos pelo aluno no formulário',
             err
-          ),
+          );
+        },
       });
   }
 

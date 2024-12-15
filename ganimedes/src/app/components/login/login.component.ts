@@ -73,8 +73,8 @@ export class LoginComponent {
       'expiration_date',
       '2024-12-15T01:29:24.4417538-03:00'
     );
-    sessionStorage.setItem('perfil', 'ALUNO'); //Defina como "ALUNO" ou "DOCENTE" ou "CCP"
-    sessionStorage.setItem('usuario', JSON.stringify(aluno_teste));
+    sessionStorage.setItem('perfil', 'DOCENTE'); //Defina como "ALUNO" ou "DOCENTE" ou "CCP"
+    sessionStorage.setItem('usuario', JSON.stringify(docente_teste));
   }
 
   salvarDados(dadosUsuario: LoginResponse) {

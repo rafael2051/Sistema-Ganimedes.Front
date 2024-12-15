@@ -41,7 +41,7 @@ export class FormularioService {
   }
 
   listarFormularios(nusp_docente: string) {
-    return this.http.get<FormMetaData>(`${this._urlApi}/getFormsMetadata`, {
+    return this.http.get<FormMetaData[]>(`${this._urlApi}/getFormsMetadata`, {
       headers: {
         Authorization: `${this._token}`,
         Nusp: `${nusp_docente}`,

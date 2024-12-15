@@ -212,6 +212,7 @@ export class FormularioComponent implements OnInit {
     this.formAluno.controls['dificuldades'].updateValueAndValidity();
 
     this.nome_aluno = data.nome_aluno;
+    this.id_formulario = data.id_formulario;
   }
 
   atribuirPareceresFormDocenteECCP(data: any) {
@@ -261,6 +262,9 @@ export class FormularioComponent implements OnInit {
   }
 
   sendForm(): void {
+
+    console.log(this.id_formulario);
+
     if (this.perfil === 'ALUNO')
       this.servico
         .salvarFormulario(

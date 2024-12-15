@@ -24,7 +24,8 @@ export class ListaFormulariosComponent {
 
     this.servico.listarFormularios(this.nusp_docente).subscribe({
       next: (res) => {
-        this.formularios = res;
+        this.formularios = res as FormMetaData[];
+        console.log(this.formularios);
       },
       error: (err) => console.log('Erro ao buscar formulários', err),
     });

@@ -18,8 +18,8 @@ export class Formulario {
 }
 
 export class FormMetaData {
-  idFormulario: number;
-  nUspAluno: string;
-  nomeAluno: string;
-  parecerDado: boolean;
+  id_formulario: number;
+  nusp_luno: string;
+  nome_aluno: string;
+  parecer_dado: boolean;
 }

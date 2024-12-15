@@ -115,11 +115,14 @@ export class FormularioComponent implements OnInit {
       console.log('Usuário logado:', this.usuario);
     }
 
-    const student_data = sessionStorage.getItem('student_data');
-    if (student_data) {
-      const student_data_parsed = JSON.parse(student_data);
-      this.nusp_orientador = student_data_parsed.orientador;
+    if(this.perfil === "ALUNO") {
+      const student_data = sessionStorage.getItem('student_data');
+      if (student_data) {
+        const student_data_parsed = JSON.parse(student_data);
+        this.nusp_orientador = student_data_parsed.orientador;
+      }
     }
+    
   }
 
   defineTextoFormAluno() {

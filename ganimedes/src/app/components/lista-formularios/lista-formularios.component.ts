@@ -10,6 +10,7 @@ import { Usuario } from '../../models/usuario.model';
   selector: 'app-lista-formularios',
   standalone: true,
   imports: [MatIconModule, MatTableModule],
+  providers: [FormularioService],
   templateUrl: './lista-formularios.component.html',
   styleUrl: './lista-formularios.component.css',
 })

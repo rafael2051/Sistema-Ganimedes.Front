@@ -12,12 +12,20 @@ export class FormularioService {
   constructor(private http: HttpClient) {}
 
   buscarDadosFormulario(nusp_aluno: string, nusp_docente: string) {
-    return this.http.get<any>(`${this._urlApi}/getForm/${nusp_aluno}`, {
-      headers: {
-        Authorization: `${this._token}`,
-        Nusp: `${nusp_docente}`,
-      },
-    });
+    if (nusp_aluno !== nusp_docente) {
+      return this.http.get<any>(`${this._urlApi}/getForm/${nusp_aluno}`, {
+        headers: {
+          Authorization: `${this._token}`,
+          Nusp: `${nusp_docente}`,
+        },
+      });
+    } else {
+      return this.http.get<any>(`${this._urlApi}/getForm/${nusp_aluno}`, {
+        headers: {
+          Authorization: `${this._token}`,
+        },
+      });
+    }
   }
 
   buscarParecer(idFormulario: number, origem: string, nusp_docente: string) {

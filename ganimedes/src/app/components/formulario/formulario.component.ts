@@ -165,6 +165,9 @@ export class FormularioComponent implements OnInit {
     // TODO: atribuir dados retornados no formulário
     console.log('Dados retornados:', data);
 
+    if(!data)
+      return;
+
     this.formAluno.controls['artigosEscrita'].setValue(data.artigos_em_escrita);
     this.formAluno.controls['artigosSubmetidos'].setValue(
       data.artigos_em_avaliacao
@@ -235,13 +238,14 @@ export class FormularioComponent implements OnInit {
         next: (res) => {
           this.atribuirDadosAoFormularioDeAluno(res);
 
+          this.dadosCarregados = true;
+
           if (this.id_formulario && this.perfil && this.perfil !== 'ALUNO')
             this.servico
               .buscarParecer(this.id_formulario, this.perfil, this.usuario.nusp)
               .subscribe({
                 next: (res) => {
                   this.atribuirPareceresFormDocenteECCP(res);
-                  this.dadosCarregados = true;
                 },
                 error: (err) =>
                   console.log('Erro ao buscar os pareceres do formulário', err),

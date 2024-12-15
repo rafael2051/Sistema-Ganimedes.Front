@@ -222,12 +222,12 @@ export class FormularioComponent implements OnInit {
     this.artigosAceitos = data.artigos_aceitos;
     this.aprovacoesDesdeInicio = data.aprovacoes_todo_curso;
     this.reprovacoesSemestreAtual = data.reprovacoes_semestre_atual;
-    this.reprovacoesDesdeInicio = data.reprovacoesDesdeInicio;
+    this.reprovacoesDesdeInicio = data.reprovacoes_todo_curso;
     this.atividadesAcademicas = data.atividades_academicas;
-    this.resumoAtividades = data.resumoAtividades;
+    this.resumoAtividades = data.atividades_pesquisa;
     this.declaracoesAdicionais = data.declaracao_adicional_comissao;
-    this.dificuladesNoCurso = data.dificuladesNoCurso;
-    this.disciplinasConceitoDivulgado = data.disciplinasConceitoDivulgado;
+    this.dificuladesNoCurso = data.dificuldade_apoio_coordenacao;
+    this.disciplinasConceitoDivulgado = data.disciplinas_conceito_divulgado;
 
   }
 

@@ -129,6 +129,8 @@
                 maxlength="2"
                 (keydown)="blockNonNumberInput($event)"
                 [disabled]="formAlunoDesabilitado"
+                [(ngModel)]="reprovacoesDesdeInicio"
+                [ngModelOptions]="{standalone: true}"
               />
             </mat-form-field>
           </div>
@@ -143,7 +145,9 @@
               Atividades acadêmicas no semestre passado (congresso, visita
               técnica, intercâmbio, estágio PAE etc)
             </mat-label>
-            <textarea matInput [disabled]="formAlunoDesabilitado"></textarea>
+            <textarea matInput [disabled]="formAlunoDesabilitado"
+            [(ngModel)]="atividadesAcademicas"
+            [ngModelOptions]="{standalone: true}"></textarea>
           </mat-form-field>
 
           <mat-form-field
@@ -157,7 +161,10 @@
               momento e das atividades que ainda precisam ser desenvolvidas até
               a conclusão do seu curso
             </mat-label>
-            <textarea matInput [disabled]="formAlunoDesabilitado"></textarea>
+            <textarea matInput [disabled]="formAlunoDesabilitado"
+            [(ngModel)]="resumoAtividades"
+            [ngModelOptions]="{standalone: true}">
+            </textarea>
           </mat-form-field>
 
           <mat-form-field
@@ -170,7 +177,9 @@
               Você tem algo a declarar para a CCP - PPgSI que considera
               importante para a sua avaliação?
             </mat-label>
-            <textarea matInput [disabled]="formAlunoDesabilitado"></textarea>
+            <textarea matInput [disabled]="formAlunoDesabilitado"
+            [(ngModel)]="declaracoesAdicionais"
+            [ngModelOptions]="{standalone: true}"></textarea>
           </mat-form-field>
 
           <mat-radio-group

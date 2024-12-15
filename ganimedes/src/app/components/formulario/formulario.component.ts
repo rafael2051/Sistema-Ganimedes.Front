@@ -39,17 +39,20 @@ export class FormularioComponent implements OnInit {
   formCCP: FormGroup;
 
   // TODO: mudar para false depois que o serviço estiver funcionando
-  public dadosCarregados: boolean = true;
+  public dadosCarregados: boolean = false;
 
   perfil = sessionStorage.getItem('perfil');
   usuario: Usuario;
   nusp_aluno: string | null;
   nusp_orientador: string | null;
-  id_formulario: number | null = null;
+  id_formulario: number;
+  nome_aluno = '';
 
   //Controle Formulários
   //Aluno
   public formAlunoDesabilitado: boolean = true;
+  textoSemestre = '';
+  textoAno = '';
 
   //Docente
   public exibeParecerDocente: boolean = false;
@@ -68,6 +71,9 @@ export class FormularioComponent implements OnInit {
       artigosEscrita: [0, Validators.required],
       artigosSubmetidos: [0, Validators.required],
       artigosAceitos: [0, Validators.required],
+      aprovacoesDesdeInicio: [0, Validators.required],
+      reprovacoesSemestreAtual: [0, Validators.required],
+      reprovacoesDesdeInicio: [0, Validators.required],
       atividadesAcademicas: ['', Validators.required],
       atividadesPesquisa: ['', Validators.required],
       declaracaoCCP: ['', Validators.required],
@@ -76,13 +82,30 @@ export class FormularioComponent implements OnInit {
     });
 
     this.formDocente = this.fb.group({
-      parecerDocente: ['', Validators.required],
+      parecer: ['', Validators.required],
+      conceito: ['', Validators.required],
     });
 
     this.formCCP = this.fb.group({
-      parecerCCP: ['', Validators.required],
+      parecer: ['', Validators.required],
+      conceito: ['', Validators.required],
     });
 
+    this.defineUsuarioEStudentData();
+    this.defineTextoFormAluno();
+
+    this.route.paramMap.subscribe((params) => {
+      this.nusp_aluno = params.get('nusp');
+      this.buscarDadosFormulario(this.nusp_aluno);
+    });
+  }
+
+  ngOnInit() {
+    this.controleFormularios();
+    console.log('O perfil deste usuário é', this.perfil);
+  }
+
+  defineUsuarioEStudentData() {
     const temp = sessionStorage.getItem('usuario');
     if (temp) {
       const temp_parsed = JSON.parse(temp);
@@ -92,31 +115,43 @@ export class FormularioComponent implements OnInit {
       console.log('Usuário logado:', this.usuario);
     }
 
-    this.route.paramMap.subscribe((params) => {
-      this.nusp_aluno = params.get('nusp');
-      this.buscarDadosFormulario(this.nusp_aluno);
-    });
-
     const student_data = sessionStorage.getItem('student_data');
-    if(student_data) {
+    if (student_data) {
       const student_data_parsed = JSON.parse(student_data);
-      this.nusp_orientador = student_data_parsed.orientador
+      this.nusp_orientador = student_data_parsed.orientador;
     }
   }
 
-  ngOnInit() {
-    this.controleFormularios();
-    console.log('O perfil deste usuário é', this.perfil);
+  defineTextoFormAluno() {
+    const hoje = new Date();
+    const mes = hoje.getMonth();
+    const ano = hoje.getFullYear();
+
+    this.textoSemestre = mes == 0 || mes >= 8 ? '2º' : '1º';
+    this.textoAno = mes == 0 ? `${ano - 1}` : `${ano}`;
   }
 
-  public controleFormularios() {
-    if (this.perfil === 'ALUNO') {
-      //TODO: implementar o controle que verifica se o formulário do aluno deve estar habilitado ou não.
-      // O formulário deve estar habilitado apenas se a data de vencimento for maior que a data atual.
-      // A data de vencimento deve ser fornecida pelo backend
+  botaoEnviarDesabilitado(): boolean {
+    if (!this.formAlunoDesabilitado && this.formAluno.valid) return false;
+    else if (
+      this.exibeParecerDocente &&
+      !this.parecerDocenteDesabilitado &&
+      this.formDocente.valid
+    )
+      return false;
+    else if (
+      this.exibeParecerCCP &&
+      !this.parecerCCPDesabilitado &&
+      this.formCCP.valid
+    )
+      return false;
 
-      this.formAlunoDesabilitado = false;
-    } else if (this.perfil === 'DOCENTE') {
+    return true;
+  }
+
+  controleFormularios() {
+    if (this.perfil === 'ALUNO') this.formAlunoDesabilitado = false;
+    else if (this.perfil === 'DOCENTE') {
       this.parecerDocenteDesabilitado = false;
       this.exibeParecerDocente = true;
     } else {
@@ -126,50 +161,124 @@ export class FormularioComponent implements OnInit {
     }
   }
 
-  public buscarDadosFormulario(nusp: any): void {
-    this.servico.buscarDadosFormulario(nusp).subscribe((data) => {
-      // TODO: atribuir dados retornados no formulário
-      console.log('Dados retornados:', data);
+  atribuirDadosAoFormularioDeAluno(data: any) {
+    // TODO: atribuir dados retornados no formulário
+    console.log('Dados retornados:', data);
 
-      this.formAluno.controls['artigosEscrita'].setValue(data.artigos_em_escrita);
-      this.formAluno.controls['artigosSubmetidos'].setValue(data.artigos_em_avaliacao);
-      this.formAluno.controls['artigosAceitos'].setValue(data.artigos_aceitos);
-      this.formAluno.controls['atividadesAcademicas'].setValue(data.atividades_academicas);
-      this.formAluno.controls['atividadesPesquisa'].setValue(data.atividades_pesquisa);
-      this.formAluno.controls['declaracaoCCP'].setValue(data.declaracao_adicional_comissao);
-      if(data.dificuldade_apoio_coordenacao){
-        this.formAluno.controls['dificuldades'].setValue("1");
-      }else{
-        this.formAluno.controls['dificuldades'].setValue("2");
-      }
+    this.formAluno.controls['artigosEscrita'].setValue(data.artigos_em_escrita);
+    this.formAluno.controls['artigosSubmetidos'].setValue(
+      data.artigos_em_avaliacao
+    );
+    this.formAluno.controls['artigosAceitos'].setValue(data.artigos_aceitos);
+    this.formAluno.controls['aprovacoesDesdeInicio'].setValue(
+      data.aprovacoesTodoCurso
+    );
+    this.formAluno.controls['reprovacoesSemestreAtual'].setValue(
+      data.reprovacoesSemestreAtual
+    );
+    this.formAluno.controls['reprovacoesDesdeInicio'].setValue(
+      data.reprovacoesTodoCurso
+    );
+    this.formAluno.controls['atividadesAcademicas'].setValue(
+      data.atividades_academicas
+    );
+    this.formAluno.controls['atividadesPesquisa'].setValue(
+      data.atividades_pesquisa
+    );
+    this.formAluno.controls['declaracaoCCP'].setValue(
+      data.declaracao_adicional_comissao
+    );
+    if (data.dificuldade_apoio_coordenacao) {
+      this.formAluno.controls['dificuldades'].setValue('1');
+    } else {
+      this.formAluno.controls['dificuldades'].setValue('2');
+    }
 
-      this.formAluno.controls['artigosEscrita'].updateValueAndValidity();
-      this.formAluno.controls['artigosSubmetidos'].updateValueAndValidity();
-      this.formAluno.controls['artigosAceitos'].updateValueAndValidity();
-      this.formAluno.controls['atividadesAcademicas'].updateValueAndValidity();
-      this.formAluno.controls['atividadesPesquisa'].updateValueAndValidity();
-      this.formAluno.controls['declaracaoCCP'].updateValueAndValidity();
-      this.formAluno.controls['dificuldades'].updateValueAndValidity();
+    this.formAluno.controls['artigosEscrita'].updateValueAndValidity();
+    this.formAluno.controls['artigosSubmetidos'].updateValueAndValidity();
+    this.formAluno.controls['artigosAceitos'].updateValueAndValidity();
+    this.formAluno.controls['aprovacoesDesdeInicio'].updateValueAndValidity();
+    this.formAluno.controls[
+      'reprovacoesSemestreAtual'
+    ].updateValueAndValidity();
+    this.formAluno.controls['reprovacoesDesdeInicio'].updateValueAndValidity();
+    this.formAluno.controls['atividadesAcademicas'].updateValueAndValidity();
+    this.formAluno.controls['atividadesPesquisa'].updateValueAndValidity();
+    this.formAluno.controls['declaracaoCCP'].updateValueAndValidity();
+    this.formAluno.controls['dificuldades'].updateValueAndValidity();
 
-      // this.formAluno.controls['conceitosDivulgados'].setValue(data.);
-
-      this.dadosCarregados = true;
-    });
+    this.nome_aluno = data.nome_aluno;
   }
 
-  public sendForm(): void {
+  atribuirPareceresFormDocenteECCP(data: any) {
+    if (this.perfil === 'DOCENTE') {
+      this.formDocente.controls['parecerDocente'].setValue(
+        data.parecer_docente
+      );
+      this.formDocente.controls['conceito'].setValue(data.conceito);
+
+      this.formDocente.controls['parecerDocente'].updateValueAndValidity();
+      this.formDocente.controls['conceito'].updateValueAndValidity();
+    } else if (this.perfil === 'CCP') {
+      this.formCCP.controls['parecerCCP'].setValue(data.parecer_ccp);
+      this.formCCP.controls['conceito'].setValue(data.conceito);
+
+      this.formCCP.controls['parecerCCP'].updateValueAndValidity();
+      this.formCCP.controls['conceito'].updateValueAndValidity();
+    }
+  }
+
+  buscarDadosFormulario(nusp_aluno: any): void {
+    this.servico
+      .buscarDadosFormulario(nusp_aluno, this.usuario.nusp)
+      .subscribe({
+        next: (res) => {
+          this.atribuirDadosAoFormularioDeAluno(res);
+
+          if (this.id_formulario && this.perfil && this.perfil !== 'ALUNO')
+            this.servico
+              .buscarParecer(this.id_formulario, this.perfil, this.usuario.nusp)
+              .subscribe({
+                next: (res) => {
+                  this.atribuirPareceresFormDocenteECCP(res);
+                  this.dadosCarregados = true;
+                },
+                error: (err) =>
+                  console.log('Erro ao buscar os pareceres do formulário', err),
+              });
+        },
+        error: (err) =>
+          console.log(
+            'Erro ao buscar dados preenchidos pelo aluno no formulário',
+            err
+          ),
+      });
+  }
+
+  sendForm(): void {
     if (this.perfil === 'ALUNO')
-      this.servico.salvarFormulario("ALUNO", this.formAluno.value, this.nusp_aluno, this.nusp_orientador).subscribe((res) => {
-        console.log('resposta salvamento form aluno', res);
-      });
+      this.servico
+        .salvarFormulario(
+          'ALUNO',
+          this.formAluno.value,
+          this.nusp_aluno,
+          this.nusp_orientador
+        )
+        .subscribe((res) => {
+          console.log('resposta salvamento form aluno', res);
+        });
     else if (this.perfil === 'DOCENTE')
-      this.servico.salvarFormulario("DOCENTE", this.formDocente.value, this.nusp_aluno, this.nusp_orientador).subscribe((res) => {
-        console.log('resposta salvamento form docente', res);
-      });
-    else
-      this.servico.salvarFormulario("CCP", this.formCCP.value, this.nusp_aluno, this.nusp_orientador).subscribe((res) => {
-        console.log('resposta salvamento form ccp', res);
-      });
+      this.servico
+        .salvarParecer(this.formDocente.value, this.usuario.nusp, this.perfil)
+        .subscribe((res) => {
+          console.log('resposta salvamento form docente', res);
+        });
+    else if (this.perfil === 'CCP')
+      this.servico
+        .salvarParecer(this.formCCP.value, this.usuario.nusp, this.perfil)
+        .subscribe((res) => {
+          console.log('resposta salvamento form ccp', res);
+        });
   }
 
   blockNonNumberInput(event: any) {

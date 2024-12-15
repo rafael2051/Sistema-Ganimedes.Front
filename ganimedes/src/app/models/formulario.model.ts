@@ -12,6 +12,9 @@ export class Formulario {
   dificuldadeApoioCoordenacao: boolean;
   dataPreenchimento: Date;
   conceitosDivulgados?: string;
+  aprovacoesTodoCurso: number;
+  reprovacoesSemestreAtual: number;
+  reprovacoesTodoCurso: number;
 }
 
 export class FormMetaData {

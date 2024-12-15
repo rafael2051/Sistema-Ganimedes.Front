@@ -4,7 +4,7 @@
     <section class="container-formulario">
       <div>
         <h3 class="main-header">
-          Formulário semestral de Aluno
+          Formulário semestral de {{ nome_aluno }}
           <mat-icon fontIcon="description"></mat-icon>
         </h3>
       </div>
@@ -53,6 +53,65 @@
               ngDefaultControl
             >
               <mat-label>Artigos aceitos e publicados</mat-label>
+              <input
+                matInput
+                #input
+                type="tel"
+                maxlength="2"
+                (keydown)="blockNonNumberInput($event)"
+                [disabled]="formAlunoDesabilitado"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="grid-container">
+            <mat-form-field
+              appearance="outline"
+              formControlName="aprovacoesDesdeInicio"
+              name="aprovacoesDesdeInicio"
+              ngDefaultControl
+            >
+              <mat-label>
+                Aprovações em disciplinas desde o início do curso
+              </mat-label>
+              <input
+                matInput
+                #input
+                maxlength="2"
+                type="tel"
+                (keydown)="blockNonNumberInput($event)"
+                [disabled]="formAlunoDesabilitado"
+              />
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              formControlName="reprovacoesSemestreAtual"
+              name="reprovacoesSemestreAtual"
+              ngDefaultControl
+            >
+              <mat-label>
+                Reprovações no {{ textoSemestre }} semestre de {{ textoAno }}
+              </mat-label>
+              <input
+                matInput
+                #input
+                type="tel"
+                maxlength="2"
+                (keydown)="blockNonNumberInput($event)"
+                [disabled]="formAlunoDesabilitado"
+              />
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              formControlName="reprovacoesDesdeInicio"
+              name="reprovacoesDesdeInicio"
+              ngDefaultControl
+            >
+              <mat-label>
+                Reprovações em disciplinas desde o início do curso
+              </mat-label>
               <input
                 matInput
                 #input
@@ -130,8 +189,8 @@
             <mat-label
               class="{{ formAlunoDesabilitado ? 'texto-desabilitado' : '' }}"
             >
-              Todas as disciplinas cursadas no semestre já tiveram seu conceito
-              divulgado?
+              Todas as disciplinas cursadas no semestre já tiveram seus
+              conceitos divulgados?
             </mat-label>
             <mat-radio-button value="1" [disabled]="formAlunoDesabilitado"
               >Sim</mat-radio-button
@@ -146,8 +205,8 @@
         <form [formGroup]="formDocente">
           <mat-form-field
             appearance="outline"
-            formControlName="parecerDocente"
-            name="parecerDocente"
+            formControlName="parecer"
+            name="parecer"
             ngDefaultControl
           >
             <mat-label>Parecer do docente orientador</mat-label>
@@ -156,23 +215,70 @@
               [disabled]="parecerDocenteDesabilitado"
             ></textarea>
           </mat-form-field>
+
+          <mat-radio-group
+            formControlName="conceito"
+            name="conceito"
+            ngDefaultControl
+          >
+            <mat-label
+              class="{{
+                parecerDocenteDesabilitado ? 'texto-desabilitado' : ''
+              }}"
+              >Desempenho do aluno com base no seu parecer:</mat-label
+            >
+            <mat-radio-button value="0" [disabled]="parecerDocenteDesabilitado">
+              Adequado
+            </mat-radio-button>
+            <mat-radio-button value="1" [disabled]="parecerDocenteDesabilitado">
+              Adequado com ressalvas
+            </mat-radio-button>
+            <mat-radio-button value="2" [disabled]="parecerDocenteDesabilitado">
+              Instatisfatório
+            </mat-radio-button>
+          </mat-radio-group>
         </form>
         } @if (exibeParecerCCP) {
         <form [formGroup]="formCCP">
           <mat-form-field
             appearance="outline"
-            formControlName="parecerCCP"
-            name="parecerCCP"
+            formControlName="parecer"
+            name="parecer"
             ngDefaultControl
           >
             <mat-label>Parecer da CCP</mat-label>
             <textarea matInput [disabled]="parecerCCPDesabilitado"></textarea>
           </mat-form-field>
+
+          <mat-radio-group
+            formControlName="conceito"
+            name="conceito"
+            ngDefaultControl
+          >
+            <mat-label
+              class="{{ parecerCCPDesabilitado ? 'texto-desabilitado' : '' }}"
+              >Desempenho do aluno com base no seu parecer:</mat-label
+            >
+            <mat-radio-button value="0" [disabled]="parecerCCPDesabilitado">
+              Adequado
+            </mat-radio-button>
+            <mat-radio-button value="1" [disabled]="parecerCCPDesabilitado">
+              Adequado com ressalvas
+            </mat-radio-button>
+            <mat-radio-button value="2" [disabled]="parecerCCPDesabilitado">
+              Instatisfatório
+            </mat-radio-button>
+          </mat-radio-group>
         </form>
         }
 
         <div class="footer">
-          <button type="submit" class="send-btn" (click)="sendForm()">
+          <button
+            type="submit"
+            class="send-btn"
+            (click)="sendForm()"
+            [disabled]="botaoEnviarDesabilitado()"
+          >
             Enviar
             <mat-icon fontIcon="send"></mat-icon>
           </button>

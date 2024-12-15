@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 import { Aluno, Docente, Usuario } from '../../models/usuario.model';
 import { FormularioService } from '../../services/formulario/formulario.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-formulario',
@@ -215,8 +216,8 @@ export class FormularioComponent implements OnInit {
     this.id_formulario = data.id_formulario;
   }
 
-  atribuirPareceresFormDocenteECCP(data: any) {
-    if (this.perfil === 'DOCENTE') {
+  atribuirPareceresFormDocenteECCP(data: any, tipo: string) {
+    if (tipo === 'DOCENTE') {
       this.formDocente.controls['parecerDocente'].setValue(
         data.parecer_docente
       );
@@ -224,7 +225,7 @@ export class FormularioComponent implements OnInit {
 
       this.formDocente.controls['parecerDocente'].updateValueAndValidity();
       this.formDocente.controls['conceito'].updateValueAndValidity();
-    } else if (this.perfil === 'CCP') {
+    } else if (tipo === 'CCP') {
       this.formCCP.controls['parecerCCP'].setValue(data.parecer_ccp);
       this.formCCP.controls['conceito'].setValue(data.conceito);
 
@@ -242,12 +243,42 @@ export class FormularioComponent implements OnInit {
 
           this.dadosCarregados = true;
 
-          if (this.id_formulario && this.perfil && this.perfil !== 'ALUNO')
-            this.servico
-              .buscarParecer(this.id_formulario, this.perfil, this.usuario.nusp)
-              .subscribe({
+          if (this.id_formulario && this.perfil)
+            if (this.perfil === 'DOCENTE')
+              this.servico
+                .buscarParecer(
+                  this.id_formulario,
+                  this.perfil,
+                  this.usuario.nusp
+                )
+                .subscribe({
+                  next: (res) =>
+                    this.atribuirPareceresFormDocenteECCP(res, 'DOCENTE'),
+                  error: (err) =>
+                    console.log(
+                      'Erro ao buscar os pareceres do formulário',
+                      err
+                    ),
+                });
+            else if (this.perfil === 'CCP')
+              forkJoin({
+                parecerDocente: this.servico.buscarParecer(
+                  this.id_formulario,
+                  'DOCENTE',
+                  this.usuario.nusp
+                ),
+                parecerCCP: this.servico.buscarParecer(
+                  this.id_formulario,
+                  this.usuario.perfil,
+                  this.usuario.nusp
+                ),
+              }).subscribe({
                 next: (res) => {
-                  this.atribuirPareceresFormDocenteECCP(res);
+                  this.atribuirPareceresFormDocenteECCP(
+                    res.parecerDocente,
+                    'DOCENTE'
+                  );
+                  this.atribuirPareceresFormDocenteECCP(res.parecerCCP, 'CCP');
                 },
                 error: (err) =>
                   console.log('Erro ao buscar os pareceres do formulário', err),
@@ -262,7 +293,6 @@ export class FormularioComponent implements OnInit {
   }
 
   sendForm(): void {
-
     console.log(this.id_formulario);
 
     if (this.perfil === 'ALUNO')

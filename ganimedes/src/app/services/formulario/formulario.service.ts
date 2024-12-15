@@ -86,13 +86,18 @@ export class FormularioService {
     });
   }
 
-  salvarParecer(form: any, nusp_docente: string, perfil_usuario: string) {
+  salvarParecer(
+    idFormulario: number,
+    form: any,
+    nusp_docente: string,
+    perfil_usuario: string
+  ) {
     const formSent = {
-      idFormulario: form.idFormulario,
+      idFormulario: idFormulario,
       parecer: form.parecer,
       origem: perfil_usuario,
       nUspAutorParecer: nusp_docente,
-      conceito: form.conceito,
+      conceito: Number(form.conceito),
     };
     return this.http.post(`${this._urlApi}/postParecer`, formSent, {
       headers: {

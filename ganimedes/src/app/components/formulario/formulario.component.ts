@@ -115,14 +115,13 @@ export class FormularioComponent implements OnInit {
       console.log('Usuário logado:', this.usuario);
     }
 
-    if(this.perfil === "ALUNO") {
+    if (this.perfil === 'ALUNO') {
       const student_data = sessionStorage.getItem('student_data');
       if (student_data) {
         const student_data_parsed = JSON.parse(student_data);
         this.nusp_orientador = student_data_parsed.orientador;
       }
     }
-    
   }
 
   defineTextoFormAluno() {
@@ -168,8 +167,7 @@ export class FormularioComponent implements OnInit {
     // TODO: atribuir dados retornados no formulário
     console.log('Dados retornados:', data);
 
-    if(!data)
-      return;
+    if (!data) return;
 
     this.formAluno.controls['artigosEscrita'].setValue(data.artigos_em_escrita);
     this.formAluno.controls['artigosSubmetidos'].setValue(
@@ -276,13 +274,23 @@ export class FormularioComponent implements OnInit {
         });
     else if (this.perfil === 'DOCENTE')
       this.servico
-        .salvarParecer(this.formDocente.value, this.usuario.nusp, this.perfil)
+        .salvarParecer(
+          this.id_formulario,
+          this.formDocente.value,
+          this.usuario.nusp,
+          this.perfil
+        )
         .subscribe((res) => {
           console.log('resposta salvamento form docente', res);
         });
     else if (this.perfil === 'CCP')
       this.servico
-        .salvarParecer(this.formCCP.value, this.usuario.nusp, this.perfil)
+        .salvarParecer(
+          this.id_formulario,
+          this.formCCP.value,
+          this.usuario.nusp,
+          this.perfil
+        )
         .subscribe((res) => {
           console.log('resposta salvamento form ccp', res);
         });

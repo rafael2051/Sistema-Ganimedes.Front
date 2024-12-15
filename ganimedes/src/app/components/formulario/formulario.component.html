@@ -26,6 +26,8 @@
                 type="tel"
                 (keydown)="blockNonNumberInput($event)"
                 [disabled]="formAlunoDesabilitado"
+                [(ngModel)]="artigosEscrita"
+                [ngModelOptions]="{standalone: true}"
               />
             </mat-form-field>
 
@@ -43,6 +45,8 @@
                 maxlength="2"
                 (keydown)="blockNonNumberInput($event)"
                 [disabled]="formAlunoDesabilitado"
+                [(ngModel)]="artigosSubmetidos"
+                [ngModelOptions]="{standalone: true}"
               />
             </mat-form-field>
 
@@ -60,6 +64,8 @@
                 maxlength="2"
                 (keydown)="blockNonNumberInput($event)"
                 [disabled]="formAlunoDesabilitado"
+                [(ngModel)]="artigosAceitos"
+                [ngModelOptions]="{standalone: true}"
               />
             </mat-form-field>
           </div>
@@ -81,6 +87,8 @@
                 type="tel"
                 (keydown)="blockNonNumberInput($event)"
                 [disabled]="formAlunoDesabilitado"
+                [(ngModel)]="aprovacoesDesdeInicio"
+                [ngModelOptions]="{standalone: true}"
               />
             </mat-form-field>
 
@@ -100,6 +108,8 @@
                 maxlength="2"
                 (keydown)="blockNonNumberInput($event)"
                 [disabled]="formAlunoDesabilitado"
+                [(ngModel)]="reprovacoesSemestreAtual"
+                [ngModelOptions]="{standalone: true}"
               />
             </mat-form-field>
 

@@ -48,6 +48,18 @@ export class FormularioComponent implements OnInit {
   nusp_orientador: string | null;
   id_formulario: number;
   nome_aluno = '';
+  artigosEscrita = '';
+  artigosSubmetidos = '';
+  artigosAceitos = '';
+  aprovacoesDesdeInicio = '';
+  reprovacoesSemestreAtual = '';
+  reprovacoesDesdeInicio = '';
+  atividadesAcademicas = '';
+  resumoAtividades = '';
+  declaracoesAdicionais = '';
+  dificuladesNoCurso = false;
+  disciplinasConceitoDivulgado = false;
+
 
   //Controle Formulários
   //Aluno
@@ -203,8 +215,20 @@ export class FormularioComponent implements OnInit {
       conceitosDivulgados: '1', //Mockado pois o bd não está salvando esse campo
     });
 
-    this.nome_aluno = data_simulated.nome_aluno;
-    this.id_formulario = data_simulated.id_formulario;
+    this.id_formulario = data.id_formulario;
+    this.nome_aluno = data.nome_aluno;
+    this.artigosEscrita = data.artigos_em_escrita;
+    this.artigosSubmetidos = data.artigos_em_avaliacao;
+    this.artigosAceitos = data.artigos_aceitos;
+    this.aprovacoesDesdeInicio = data.aprovacoes_todo_curso;
+    this.reprovacoesSemestreAtual = data.reprovacoes_semestre_atual;
+    this.reprovacoesDesdeInicio = data.reprovacoesDesdeInicio;
+    this.atividadesAcademicas = data.atividades_academicas;
+    this.resumoAtividades = data.resumoAtividades;
+    this.declaracoesAdicionais = data.declaracao_adicional_comissao;
+    this.dificuladesNoCurso = data.dificuladesNoCurso;
+    this.disciplinasConceitoDivulgado = data.disciplinasConceitoDivulgado;
+
   }
 
   atribuirPareceresFormDocenteECCP(data: any, tipo: string) {

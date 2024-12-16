@@ -100,10 +100,6 @@ export class LoginComponent {
       error: (error) => {
         console.log('erro login - resposta', error);
         alert('Usuário ou senha inválidos');
-
-        //TODO: remover quando projeto estiver concluído
-        this.salvarTokenSimbolico();
-        this.router.navigate(['/']);
       },
     });
   }

@@ -39,7 +39,6 @@ export class FormularioComponent implements OnInit {
   formDocente: FormGroup;
   formCCP: FormGroup;
 
-  // TODO: mudar para false depois que o serviço estiver funcionando
   public dadosCarregados: boolean = false;
 
   perfil = sessionStorage.getItem('perfil');
@@ -50,7 +49,7 @@ export class FormularioComponent implements OnInit {
   nome_aluno = 'Aluno';
   conceito_docente: number;
   conceito_ccp: number;
-  
+
   artigosEscrita = '';
   artigosSubmetidos = '';
   artigosAceitos = '';
@@ -62,7 +61,6 @@ export class FormularioComponent implements OnInit {
   declaracoesAdicionais = '';
   parecerDocente = '';
   parecerCcp = '';
-
 
   //Controle Formulários
   //Aluno
@@ -180,17 +178,16 @@ export class FormularioComponent implements OnInit {
   }
 
   atribuirDadosAoFormularioDeAluno(data: any) {
-    // TODO: atribuir dados retornados no formulário
     console.log('Dados retornados:', data);
 
-    if (!data){
+    if (!data) {
       this.defineNomeAlunoView();
       return;
     }
 
     this.formAluno.patchValue({
       dificuldades: data.dificuldade_apoio_coordenacao ? '1' : '0',
-      conceitosDivulgados: data.disciplinas_conceito_divulgado ? '1' : '0', 
+      conceitosDivulgados: data.disciplinas_conceito_divulgado ? '1' : '0',
     });
 
     this.id_formulario = data.id_formulario;
@@ -209,15 +206,15 @@ export class FormularioComponent implements OnInit {
     this.defineNomeAlunoView();
   }
 
-  atribuirPareceresFormDocenteECCP(data: any, tipo: "DOCENTE" | "CCP") {
+  atribuirPareceresFormDocenteECCP(data: any, tipo: 'DOCENTE' | 'CCP') {
     console.log('dados do atribuirPareceresFormDocenteECCP', data, tipo);
 
-    if(tipo === "DOCENTE"){
+    if (tipo === 'DOCENTE') {
       this.formDocente.patchValue({
         conceito: `${data.conceito}`,
       });
       this.parecerDocente = data.parecer;
-    } else if(tipo === "CCP") {
+    } else if (tipo === 'CCP') {
       this.formCCP.patchValue({
         conceitoCCP: `${data.conceito}`,
       });
@@ -231,7 +228,7 @@ export class FormularioComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.atribuirDadosAoFormularioDeAluno(res);
-          
+
           this.dadosCarregados = true;
 
           if (this.id_formulario && this.perfil)
@@ -251,20 +248,29 @@ export class FormularioComponent implements OnInit {
                       err
                     ),
                 });
-            else if (this.perfil === 'CCP'){
-              this.servico.buscarParecer(this.id_formulario, 'DOCENTE', this.usuario.nusp)
-              .subscribe({
-                next: res => {
-                  this.atribuirPareceresFormDocenteECCP(res, "DOCENTE")
-                  
-                  this.servico.buscarParecer(this.id_formulario, this.usuario.perfil, this.usuario.nusp)
-                  .subscribe({
-                    next: res => this.atribuirPareceresFormDocenteECCP(res, "CCP"),
-                    error: err => console.log('Erro ao buscar o parecer da CCP', err)
-                  })
-                },
-                error: err => console.log('Erro ao buscar o parecer do docente', err)
-              })
+            else if (this.perfil === 'CCP') {
+              this.servico
+                .buscarParecer(this.id_formulario, 'DOCENTE', this.usuario.nusp)
+                .subscribe({
+                  next: (res) => {
+                    this.atribuirPareceresFormDocenteECCP(res, 'DOCENTE');
+
+                    this.servico
+                      .buscarParecer(
+                        this.id_formulario,
+                        this.usuario.perfil,
+                        this.usuario.nusp
+                      )
+                      .subscribe({
+                        next: (res) =>
+                          this.atribuirPareceresFormDocenteECCP(res, 'CCP'),
+                        error: (err) =>
+                          console.log('Erro ao buscar o parecer da CCP', err),
+                      });
+                  },
+                  error: (err) =>
+                    console.log('Erro ao buscar o parecer do docente', err),
+                });
             }
         },
         error: (err) => {
@@ -291,14 +297,15 @@ export class FormularioComponent implements OnInit {
           console.log('resposta salvamento form aluno', res);
         });
     else if (this.perfil === 'ALUNO' && this.id_formulario)
-      this.servico.atualizarFormulario(
-        this.formAluno.value,
-        this.nusp_aluno,
-        this.nusp_orientador
-      )
-      .subscribe((res) => {
-        console.log('resposta da atualização do formulário', res)
-      })
+      this.servico
+        .atualizarFormulario(
+          this.formAluno.value,
+          this.nusp_aluno,
+          this.nusp_orientador
+        )
+        .subscribe((res) => {
+          console.log('resposta da atualização do formulário', res);
+        });
     else if (this.perfil === 'DOCENTE')
       this.servico
         .salvarParecer(
@@ -323,8 +330,8 @@ export class FormularioComponent implements OnInit {
         });
   }
 
-  defineNomeAlunoView(){
-    if (this.nome_aluno === 'Aluno' && this.perfil === "ALUNO"){
+  defineNomeAlunoView() {
+    if (this.nome_aluno === 'Aluno' && this.perfil === 'ALUNO') {
       this.nome_aluno = this.usuario.nomeCompleto;
     }
   }

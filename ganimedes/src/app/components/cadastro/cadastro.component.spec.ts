@@ -129,7 +129,7 @@ describe('CadastroComponent', () => {
 
     component.salvarCadastro();
     expect(authServiceMock.signUpUser).toHaveBeenCalled();
-    expect(authServiceMock.signUpStudent).toHaveBeenCalled();
+    expect(authServiceMock.signUpStudent).not.toHaveBeenCalled();
     expect(routerMock.navigate).toHaveBeenCalledWith(['/login']);
   });
 

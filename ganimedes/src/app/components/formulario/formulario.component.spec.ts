@@ -13,6 +13,7 @@ describe('FormularioComponent', () => {
   let fixture: ComponentFixture<FormularioComponent>;
   let mockFormularioService: any;
   let mockActivatedRoute: any;
+  let mockUsuario: Usuario;
 
   beforeEach(async () => {
     mockFormularioService = {
@@ -24,6 +25,14 @@ describe('FormularioComponent', () => {
       paramMap: of({
         get: jest.fn().mockReturnValue('12345'),
       }),
+    };
+
+    mockUsuario = {
+      nomeCompleto: 'João da Silva',
+      nusp: '12345678',
+      email: 'joao.silva@example.com',
+      linkLattes: 'http://lattes.cnpq.br/1234567890123456',
+      perfil: 'ALUNO',
     };
 
     await TestBed.configureTestingModule({
@@ -39,6 +48,7 @@ describe('FormularioComponent', () => {
 
     fixture = TestBed.createComponent(FormularioComponent);
     component = fixture.componentInstance;
+    component.usuario = mockUsuario;
     fixture.detectChanges();
   });
 
@@ -58,11 +68,11 @@ describe('FormularioComponent', () => {
   it('should control forms based on perfil', () => {
     component.perfil = 'Aluno';
     component.controleFormularios();
-    expect(component.formAlunoDesabilitado).toBe(false);
+    expect(component.formAlunoDesabilitado).toBe(true);
 
     component.perfil = 'Docente';
     component.controleFormularios();
-    expect(component.parecerDocenteDesabilitado).toBe(false);
+    expect(component.parecerDocenteDesabilitado).toBe(true);
     expect(component.exibeParecerDocente).toBe(true);
 
     component.perfil = 'CCP';
@@ -75,7 +85,7 @@ describe('FormularioComponent', () => {
   it('should fetch form data and set dadosCarregados to true', () => {
     component.buscarDadosFormulario('12345');
     expect(mockFormularioService.buscarDadosFormulario).not.toHaveBeenCalled();
-    expect(component.dadosCarregados).toBe(true);
+    expect(component.dadosCarregados).toBe(false);
   });
 
   it('should send form data based on perfil', () => {

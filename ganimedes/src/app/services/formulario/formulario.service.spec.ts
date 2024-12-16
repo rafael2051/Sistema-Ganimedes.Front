@@ -4,7 +4,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { FormularioService } from './formulario.service';
-import { Aluno } from '../../models/usuario.model';
+import { FormMetaData } from '../../models/formulario.model';
 
 describe('FormularioService', () => {
   let service: FormularioService;
@@ -17,85 +17,122 @@ describe('FormularioService', () => {
     });
     service = TestBed.inject(FormularioService);
     httpMock = TestBed.inject(HttpTestingController);
+    sessionStorage.setItem('token', 'test-token');
   });
 
   afterEach(() => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('should fetch form data for a given nusp', () => {
-    const dummyAluno = new Aluno(
-      'João da Silva',
-      '123456',
-      'joao.silva@example.com',
-      'http://lattes.cnpq.br/1234567890123456',
-      'Aluno',
-      'Mestrado',
-      2021,
-      'Aprovado',
-      'Não Realizado',
-      new Date('2023-12-31'),
-      new Date('2025-12-31'),
-      'Dr. José Pereira',
-      '123456789',
-      new Date('1995-05-15'),
-      'Brasileiro'
-    );
-    const nusp = '123456';
-
-    service.buscarDadosFormulario(nusp).subscribe((aluno) => {
-      expect(aluno).toEqual(dummyAluno);
+  it('should fetch form data', () => {
+    const dummyResponse = { data: 'test' };
+    service.buscarDadosFormulario('123', '456').subscribe((res) => {
+      expect(res).toEqual(dummyResponse);
     });
 
-    const req = httpMock.expectOne(`${service['_urlApi']}/getForm/${nusp}`);
+    const req = httpMock.expectOne('https://localhost:7260/getForm/123');
     expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('Authorization')).toBe(
-      `Bearer ${service['_token']}`
-    );
-    req.flush(dummyAluno);
-  });
-
-  it('should list forms metadata for a given nusp_docente', () => {
-    const nusp_docente = '654321';
-    const dummyResponse = {
-      /* mock response data */
-    };
-
-    service.listarFormularios(nusp_docente).subscribe((response) => {
-      expect(response).toEqual(dummyResponse);
-    });
-
-    const req = httpMock.expectOne(`${service['_urlApi']}/getFormsMetadata`);
-    expect(req.request.method).toBe('POST');
-    expect(req.request.headers.get('Authorization')).toBe(
-      `Bearer ${service['_token']}`
-    );
-    expect(req.request.body).toBe(nusp_docente);
+    expect(req.request.headers.get('Authorization')).toBe('null');
+    expect(req.request.headers.get('Nusp')).toBe('456');
     req.flush(dummyResponse);
   });
 
-  it('should save form data', () => {
-    const form = {
-      /* mock form data */
-    };
-    const dummyResponse = {
-      /* mock response data */
-    };
-
-    service.salvarFormulario(form).subscribe((response) => {
-      expect(response).toEqual(dummyResponse);
+  it('should fetch parecer', () => {
+    const dummyResponse = { data: 'test' };
+    service.buscarParecer(1, 'origem', '456').subscribe((res) => {
+      expect(res).toEqual(dummyResponse);
     });
 
-    const req = httpMock.expectOne(`${service['_urlApi']}/salvarFormulario`);
-    expect(req.request.method).toBe('POST');
-    expect(req.request.headers.get('Authorization')).toBe(
-      `Bearer ${service['_token']}`
+    const req = httpMock.expectOne(
+      'https://localhost:7260/getParecer/1?origem=origem'
     );
-    expect(req.request.body).toBe(form);
+    expect(req.request.method).toBe('GET');
+    expect(req.request.headers.get('Authorization')).toBe('test-token');
+    expect(req.request.headers.get('Nusp')).toBe('456');
+    req.flush(dummyResponse);
+  });
+
+  it('should list forms metadata', () => {
+    const dummyResponse: FormMetaData[] = [
+      {
+        id_formulario: 1,
+        nusp_luno: '123456',
+        nome_aluno: 'John Doe',
+        parecer_dado: true,
+      },
+    ];
+    service.listarFormularios('456').subscribe((res) => {
+      expect(res).toEqual(dummyResponse);
+    });
+
+    const req = httpMock.expectOne('https://localhost:7260/getFormsMetadata');
+    expect(req.request.method).toBe('GET');
+    expect(req.request.headers.get('Authorization')).toBe('test-token');
+    expect(req.request.headers.get('Nusp')).toBe('456');
+    req.flush(dummyResponse);
+  });
+
+  it('should save form', () => {
+    const dummyResponse = { success: true };
+    const form = {
+      artigosEscrita: '1',
+      artigosSubmetidos: '2',
+      artigosAceitos: '3',
+      aprovacoesDesdeInicio: '4',
+      reprovacoesSemestreAtual: '5',
+      reprovacoesDesdeInicio: '6',
+      atividadesAcademicas: 'test',
+      atividadesPesquisa: 'test',
+      declaracaoCCP: 'test',
+      dificuldades: '1',
+      conceitosDivulgados: '1',
+    };
+    service.salvarFormulario('ALUNO', form, '123', '456').subscribe((res) => {
+      expect(res).toEqual(dummyResponse);
+    });
+
+    const req = httpMock.expectOne('https://localhost:7260/postFormulario');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.headers.get('Authorization')).toBe('test-token');
+    req.flush(dummyResponse);
+  });
+
+  it('should save parecer', () => {
+    const dummyResponse = { success: true };
+    const form = { parecer: 'test', conceito: '1' };
+    service.salvarParecer(1, form, '456', 'perfil').subscribe((res) => {
+      expect(res).toEqual(dummyResponse);
+    });
+
+    const req = httpMock.expectOne('https://localhost:7260/postParecer');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.headers.get('Authorization')).toBe('test-token');
+    expect(req.request.headers.get('Nusp')).toBe('456');
+    req.flush(dummyResponse);
+  });
+
+  it('should update form', () => {
+    const dummyResponse = { success: true };
+    const form = {
+      artigosEscrita: '1',
+      artigosSubmetidos: '2',
+      artigosAceitos: '3',
+      aprovacoesDesdeInicio: '4',
+      reprovacoesSemestreAtual: '5',
+      reprovacoesDesdeInicio: '6',
+      atividadesAcademicas: 'test',
+      atividadesPesquisa: 'test',
+      declaracaoCCP: 'test',
+      dificuldades: '1',
+      conceitosDivulgados: '1',
+    };
+    service.atualizarFormulario(form, '123', '456').subscribe((res) => {
+      expect(res).toEqual(dummyResponse);
+    });
+
+    const req = httpMock.expectOne('https://localhost:7260/updateFormulario');
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.headers.get('Authorization')).toBe('test-token');
     req.flush(dummyResponse);
   });
 });

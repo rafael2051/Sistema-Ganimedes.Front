@@ -37,7 +37,7 @@ describe('PerfilService', () => {
       'http://localhost:5000/perfil/atualizarPerfil'
     );
     expect(req.request.method).toBe('POST');
-    expect(req.request.headers.get('Authorization')).toBe(`Bearer ${token}`);
+    expect(req.request.headers.get('Authorization')).toBe(`${token}`);
     req.flush({});
   });
 

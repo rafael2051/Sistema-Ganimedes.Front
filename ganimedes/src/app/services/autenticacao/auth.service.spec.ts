@@ -34,14 +34,14 @@ describe('AuthService', () => {
       nusp: '654321',
       email: 'testuser@example.com',
       linkLattes: 'http://lattes.cnpq.br/6543210987654321',
-      perfil: 'Docente',
+      perfil: 'DOCENTE',
     };
     const mockAluno = new Aluno(
       'Test Student',
       '123456',
       'student@example.com',
       'http://lattes.cnpq.br/1234567890123456',
-      'Aluno',
+      'ALUNO',
       'Mestrado',
       2021,
       'Aprovado',

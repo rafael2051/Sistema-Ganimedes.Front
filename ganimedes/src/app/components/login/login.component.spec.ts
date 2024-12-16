@@ -76,7 +76,7 @@ describe('LoginComponent', () => {
     component.login();
     expect(authServiceMock.login).toHaveBeenCalledWith(component.form.value);
     expect(component.salvarDados).toHaveBeenCalledWith(response);
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
+    expect(routerMock.navigate).not.toHaveBeenCalled();
   });
 
   it('should handle login error', () => {

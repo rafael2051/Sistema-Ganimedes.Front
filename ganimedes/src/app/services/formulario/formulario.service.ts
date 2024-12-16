@@ -73,7 +73,7 @@ export class FormularioService {
       formSent.atividadesPesquisa = form.atividadesPesquisa;
       formSent.declaracaoAdicionalComissao = form.declaracaoCCP;
       formSent.dificuldadeApoioCoordenacao =
-        form.dificuldades == '1' ? true : false;
+      form.dificuldades == '1' ? true : false;
       formSent.conceitosDivulgados = form.conceitosDivulgados;
     } else if (tipo_form === 'DOCENTE') {
       formSent.parecerDocente = form.parecerDocente;
@@ -105,5 +105,29 @@ export class FormularioService {
         Nusp: `${nusp_docente}`,
       },
     });
+  }
+
+  atualizarFormulario(form: any, nusp_aluno: any, nusp_orientador: any){
+    const formSent = {
+      aluno: nusp_aluno,
+      orientador: nusp_orientador,
+      dataPreenchimento: new Date(),
+
+      artigosEmEscrita: Number(form.artigosEscrita),
+      artigosEmAvaliacao: Number(form.artigosSubmetidos),
+      artigosAceitos: Number(form.artigosAceitos),
+      aprovacoesTodoCurso: Number(form.aprovacoesDesdeInicio),
+      reprovacoesSemestreAtual: Number(form.reprovacoesSemestreAtual),
+      reprovacoesTodoCurso: Number(form.reprovacoesDesdeInicio),
+      atividadesAcademicas: form.atividadesAcademicas,
+      atividadesPesquisa: form.atividadesPesquisa,
+      declaracaoAdicionalComissao: form.declaracaoCCP,
+      dificuldadeApoioCoordenacao: form.dificuldades == '1' ? true : false,
+      conceitosDivulgados: form.conceitosDivulgados == '1' ? true : false,
+    };
+
+    return this.http.put(`${this._urlApi}/updateFormulario`, formSent, {
+      headers: { Authorization : `${this._token}`}
+    })
   }
 }

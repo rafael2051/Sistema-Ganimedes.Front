@@ -232,6 +232,8 @@
             <textarea
               matInput
               [disabled]="parecerDocenteDesabilitado"
+              [(ngModel)]="parecerDocente"
+              [ngModelOptions]="{standalone: true}"
             ></textarea>
           </mat-form-field>
 
@@ -261,17 +263,20 @@
         <form [formGroup]="formCCP">
           <mat-form-field
             appearance="outline"
-            formControlName="parecer"
-            name="parecer"
+            formControlName="parecerCCP"
+            name="parecerCCP"
             ngDefaultControl
           >
             <mat-label>Parecer da CCP</mat-label>
-            <textarea matInput [disabled]="parecerCCPDesabilitado"></textarea>
+            <textarea matInput 
+            [disabled]="parecerCCPDesabilitado"
+            [(ngModel)]="parecerCcp"
+            [ngModelOptions]="{standalone: true}"></textarea>
           </mat-form-field>
 
           <mat-radio-group
-            formControlName="conceito"
-            name="conceito"
+            formControlName="conceitoCCP"
+            name="conceitoCCP"
             ngDefaultControl
           >
             <mat-label
@@ -295,6 +300,7 @@
           <button
             type="submit"
             class="send-btn"
+            [ngClass]="botaoEnviarDesabilitado() ? 'send-btn-desabilitado' : ''"
             (click)="sendForm()"
             [disabled]="botaoEnviarDesabilitado()"
           >

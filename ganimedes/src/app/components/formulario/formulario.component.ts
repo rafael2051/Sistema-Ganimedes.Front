@@ -40,14 +40,17 @@ export class FormularioComponent implements OnInit {
   formCCP: FormGroup;
 
   // TODO: mudar para false depois que o serviço estiver funcionando
-  public dadosCarregados: boolean = true;
+  public dadosCarregados: boolean = false;
 
   perfil = sessionStorage.getItem('perfil');
   usuario: Usuario;
   nusp_aluno: string | null;
   nusp_orientador: string | null;
   id_formulario: number;
-  nome_aluno = '';
+  nome_aluno = 'Aluno';
+  conceito_docente: number;
+  conceito_ccp: number;
+  
   artigosEscrita = '';
   artigosSubmetidos = '';
   artigosAceitos = '';
@@ -57,8 +60,8 @@ export class FormularioComponent implements OnInit {
   atividadesAcademicas = '';
   resumoAtividades = '';
   declaracoesAdicionais = '';
-  dificuladesNoCurso = false;
-  disciplinasConceitoDivulgado = false;
+  parecerDocente = '';
+  parecerCcp = '';
 
 
   //Controle Formulários
@@ -100,8 +103,8 @@ export class FormularioComponent implements OnInit {
     });
 
     this.formCCP = this.fb.group({
-      parecer: ['', Validators.required],
-      conceito: ['', Validators.required],
+      parecerCCP: ['', Validators.required],
+      conceitoCCP: ['', Validators.required],
     });
 
     this.defineUsuarioEStudentData();
@@ -179,44 +182,20 @@ export class FormularioComponent implements OnInit {
   atribuirDadosAoFormularioDeAluno(data: any) {
     // TODO: atribuir dados retornados no formulário
     console.log('Dados retornados:', data);
-    const data_simulated = {
-      id_formulario: 16,
-      aluno: '76767676',
-      orientador: '34567810',
-      nome_aluno: 'Joãozinho USP',
-      artigos_em_escrita: 2,
-      artigos_em_avaliacao: 1,
-      artigos_aceitos: 1,
-      aprovacoesTodoCurso: 10,
-      reprovacoesSemestreAtual: 1,
-      reprovacoesTodoCurso: 1,
-      atividades_academicas: 'Intercâmbio na Universidade de Roma na Itália.',
-      atividades_pesquisa:
-        'Estou desenvolvendo pesquisa em IA sobre comparação entre diferentes tipos de algoritmos de aprendizagem de máquina supervisonado e preciso apresentar os resultados de quais os mais eficientes até o final do curso.',
-      declaracao_adicional_comissao: 'Não;',
-      dificuldade_apoio_coordenacao: true,
-      data_preenchimento: '2024-12-14T00:00:00',
-    };
-    console.log('dados simulados', data_simulated);
 
-    if (!data_simulated) return;
+    if (!data){
+      this.defineNomeAlunoView();
+      return;
+    }
 
     this.formAluno.patchValue({
-      artigosEscrita: data_simulated.artigos_em_escrita,
-      artigosSubmetidos: data_simulated.artigos_em_avaliacao,
-      artigosAceitos: data_simulated.artigos_aceitos,
-      aprovacoesDesdeInicio: data_simulated.aprovacoesTodoCurso,
-      reprovacoesSemestreAtual: data_simulated.reprovacoesSemestreAtual,
-      reprovacoesDesdeInicio: data_simulated.reprovacoesTodoCurso,
-      atividadesAcademicas: data_simulated.atividades_academicas,
-      atividadesPesquisa: data_simulated.atividades_pesquisa,
-      declaracaoCCP: data_simulated.declaracao_adicional_comissao,
-      dificuldades: data_simulated.dificuldade_apoio_coordenacao ? '1' : '2',
-      conceitosDivulgados: '1', //Mockado pois o bd não está salvando esse campo
+      dificuldades: data.dificuldade_apoio_coordenacao ? '1' : '0',
+      conceitosDivulgados: data.disciplinas_conceito_divulgado ? '1' : '0', 
     });
 
     this.id_formulario = data.id_formulario;
     this.nome_aluno = data.nome_aluno;
+
     this.artigosEscrita = data.artigos_em_escrita;
     this.artigosSubmetidos = data.artigos_em_avaliacao;
     this.artigosAceitos = data.artigos_aceitos;
@@ -226,22 +205,24 @@ export class FormularioComponent implements OnInit {
     this.atividadesAcademicas = data.atividades_academicas;
     this.resumoAtividades = data.atividades_pesquisa;
     this.declaracoesAdicionais = data.declaracao_adicional_comissao;
-    this.dificuladesNoCurso = data.dificuldade_apoio_coordenacao;
-    this.disciplinasConceitoDivulgado = data.disciplinas_conceito_divulgado;
 
+    this.defineNomeAlunoView();
   }
 
-  atribuirPareceresFormDocenteECCP(data: any, tipo: string) {
-    if (tipo === 'DOCENTE')
+  atribuirPareceresFormDocenteECCP(data: any, tipo: "DOCENTE" | "CCP") {
+    console.log('dados do atribuirPareceresFormDocenteECCP', data, tipo);
+
+    if(tipo === "DOCENTE"){
       this.formDocente.patchValue({
-        parecer: data.parecer_docente,
-        conceito: data.conceito,
+        conceito: `${data.conceito}`,
       });
-    else if (tipo === 'CCP')
+      this.parecerDocente = data.parecer;
+    } else if(tipo === "CCP") {
       this.formCCP.patchValue({
-        parecerCCP: data.parecer_ccp,
-        conceito: data.conceito,
+        conceitoCCP: `${data.conceito}`,
       });
+      this.parecerCcp = data.parecer;
+    }
   }
 
   buscarDadosFormulario(nusp_aluno: any): void {
@@ -250,7 +231,7 @@ export class FormularioComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.atribuirDadosAoFormularioDeAluno(res);
-
+          
           this.dadosCarregados = true;
 
           if (this.id_formulario && this.perfil)
@@ -270,34 +251,23 @@ export class FormularioComponent implements OnInit {
                       err
                     ),
                 });
-            else if (this.perfil === 'CCP')
-              forkJoin({
-                parecerDocente: this.servico.buscarParecer(
-                  this.id_formulario,
-                  'DOCENTE',
-                  this.usuario.nusp
-                ),
-                parecerCCP: this.servico.buscarParecer(
-                  this.id_formulario,
-                  this.usuario.perfil,
-                  this.usuario.nusp
-                ),
-              }).subscribe({
-                next: (res) => {
-                  this.atribuirPareceresFormDocenteECCP(
-                    res.parecerDocente,
-                    'DOCENTE'
-                  );
-                  this.atribuirPareceresFormDocenteECCP(res.parecerCCP, 'CCP');
+            else if (this.perfil === 'CCP'){
+              this.servico.buscarParecer(this.id_formulario, 'DOCENTE', this.usuario.nusp)
+              .subscribe({
+                next: res => {
+                  this.atribuirPareceresFormDocenteECCP(res, "DOCENTE")
+                  
+                  this.servico.buscarParecer(this.id_formulario, this.usuario.perfil, this.usuario.nusp)
+                  .subscribe({
+                    next: res => this.atribuirPareceresFormDocenteECCP(res, "CCP"),
+                    error: err => console.log('Erro ao buscar o parecer da CCP', err)
+                  })
                 },
-                error: (err) =>
-                  console.log('Erro ao buscar os pareceres do formulário', err),
-              });
+                error: err => console.log('Erro ao buscar o parecer do docente', err)
+              })
+            }
         },
         error: (err) => {
-          //TODO: retirar esta chamada
-          this.atribuirDadosAoFormularioDeAluno({});
-
           console.log(
             'Erro ao buscar dados preenchidos pelo aluno no formulário',
             err
@@ -307,9 +277,9 @@ export class FormularioComponent implements OnInit {
   }
 
   sendForm(): void {
-    console.log(this.id_formulario);
+    console.log('id do form no sendForm', this.id_formulario);
 
-    if (this.perfil === 'ALUNO')
+    if (this.perfil === 'ALUNO' && !this.id_formulario)
       this.servico
         .salvarFormulario(
           'ALUNO',
@@ -320,6 +290,15 @@ export class FormularioComponent implements OnInit {
         .subscribe((res) => {
           console.log('resposta salvamento form aluno', res);
         });
+    else if (this.perfil === 'ALUNO' && this.id_formulario)
+      this.servico.atualizarFormulario(
+        this.formAluno.value,
+        this.nusp_aluno,
+        this.nusp_orientador
+      )
+      .subscribe((res) => {
+        console.log('resposta da atualização do formulário', res)
+      })
     else if (this.perfil === 'DOCENTE')
       this.servico
         .salvarParecer(
@@ -342,6 +321,12 @@ export class FormularioComponent implements OnInit {
         .subscribe((res) => {
           console.log('resposta salvamento form ccp', res);
         });
+  }
+
+  defineNomeAlunoView(){
+    if (this.nome_aluno === 'Aluno' && this.perfil === "ALUNO"){
+      this.nome_aluno = this.usuario.nomeCompleto;
+    }
   }
 
   blockNonNumberInput(event: any) {

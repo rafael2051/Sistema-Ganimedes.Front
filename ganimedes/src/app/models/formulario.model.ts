@@ -10,8 +10,8 @@ export class Formulario {
   atividadesPesquisa: string;
   declaracaoAdicionalComissao: string;
   dificuldadeApoioCoordenacao: boolean;
+  disciplinasConceitoDivulgado: boolean;
   dataPreenchimento: Date;
-  conceitosDivulgados?: string;
   aprovacoesTodoCurso: number;
   reprovacoesSemestreAtual: number;
   reprovacoesTodoCurso: number;

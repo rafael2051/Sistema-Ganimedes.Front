@@ -61,3 +61,8 @@
 .texto-desabilitado {
     color: #989f99;
 }
+
+
+.send-btn-desabilitado{
+    background-color: gray !important;
+}
